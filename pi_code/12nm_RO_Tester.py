@@ -191,7 +191,7 @@ if __name__ == '__main__':
     print("                                                          ")
     print("                                                          ")
     time.sleep(0.5)
-    print("Welcome to the 22nm FDSOI RO Teseter\n")
+    print("Welcome to the 12nm FDSOI RO Tester\n")
     print ("Press 'CTRL+C' when done testing to terminate")
     time.sleep(1)
 
