@@ -6,12 +6,12 @@
 // Create Date:    13:32:10 07/23/2021 
 // Design Name: 
 // Module Name:    RO_DATA_OUTPUT 
-// Project Name: 
-// Target Devices: 
+// Project Name: 12nm Testing Programs
+// Target Devices: Xilinx FPGA, Output Circuit
 // Tool versions: 
-// Description: 
+// Description: Send Count for INV, NAND, NOR, DividorOutput in a serial fashion to RPi
 //
-// Dependencies: 
+// Dependencies: None
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -78,7 +78,7 @@ module RO_DATA_OUTPUT(
 			end
 		else
 			begin
-				case(output_count)		// now toggle between all the different data selects for the output, there are 96 bits to send
+				case(output_count)		// now toggle between all the different data selects for the output, there are 128 bits to send
 					8'd0    :   DATA_OUT = INV_COUNT[0];
 					8'd1    :   DATA_OUT = INV_COUNT[1];
 					8'd2    :   DATA_OUT = INV_COUNT[2];
