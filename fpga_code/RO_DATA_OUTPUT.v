@@ -25,7 +25,7 @@ module RO_DATA_OUTPUT(
 	input [31:0] INV_COUNT,
 	input [31:0] NAND_COUNT,
 	input [31:0] NOR_COUNT,
-	input [31:0] CLK_COUNT,
+	input [31:0] DividerOutput_COUNT,
 	
 	output reg [1:0] C,
 	output reg DATA_OUT
@@ -175,38 +175,38 @@ module RO_DATA_OUTPUT(
 					8'd93   :   DATA_OUT = NOR_COUNT[29];
 					8'd94   :   DATA_OUT = NOR_COUNT[30];
 					8'd95   :   DATA_OUT = NOR_COUNT[31];
-					8'd96	:	DATA_OUT = CLK_COUNT[0];
-					8'd97	:	DATA_OUT = CLK_COUNT[1];
-					8'd98	:	DATA_OUT = CLK_COUNT[2];
-					8'd99	:	DATA_OUT = CLK_COUNT[3];
-					8'd100	:	DATA_OUT = CLK_COUNT[4];
-					8'd101	:	DATA_OUT = CLK_COUNT[5];
-					8'd102	:	DATA_OUT = CLK_COUNT[6];
-					8'd103	:	DATA_OUT = CLK_COUNT[7];
-					8'd104	:	DATA_OUT = CLK_COUNT[8];
-					8'd105	:	DATA_OUT = CLK_COUNT[9];
-					8'd106	:	DATA_OUT = CLK_COUNT[10];
-					8'd107	:	DATA_OUT = CLK_COUNT[11];
-					8'd108	:	DATA_OUT = CLK_COUNT[12];
-					8'd109	:	DATA_OUT = CLK_COUNT[13];
-					8'd110	:	DATA_OUT = CLK_COUNT[14];
-					8'd111	:	DATA_OUT = CLK_COUNT[15];
-					8'd112	:	DATA_OUT = CLK_COUNT[16];
-					8'd113	:	DATA_OUT = CLK_COUNT[17];
-					8'd114	:	DATA_OUT = CLK_COUNT[18];
-					8'd115	:	DATA_OUT = CLK_COUNT[19];
-					8'd116	:	DATA_OUT = CLK_COUNT[20];
-					8'd117	:	DATA_OUT = CLK_COUNT[21];
-					8'd118	:	DATA_OUT = CLK_COUNT[22];
-					8'd119	:	DATA_OUT = CLK_COUNT[23];
-					8'd120	:	DATA_OUT = CLK_COUNT[24];
-					8'd121	:	DATA_OUT = CLK_COUNT[25];
-					8'd122	:	DATA_OUT = CLK_COUNT[26];
-					8'd123	:	DATA_OUT = CLK_COUNT[27];
-					8'd124	:	DATA_OUT = CLK_COUNT[28];
-					8'd125	:	DATA_OUT = CLK_COUNT[29];
-					8'd126	:	DATA_OUT = CLK_COUNT[30];
-					8'd127	:	DATA_OUT = CLK_COUNT[31];
+					8'd96	:	DATA_OUT = DividerOutput_COUNT[0];
+					8'd97	:	DATA_OUT = DividerOutput_COUNT[1];
+					8'd98	:	DATA_OUT = DividerOutput_COUNT[2];
+					8'd99	:	DATA_OUT = DividerOutput_COUNT[3];
+					8'd100	:	DATA_OUT = DividerOutput_COUNT[4];
+					8'd101	:	DATA_OUT = DividerOutput_COUNT[5];
+					8'd102	:	DATA_OUT = DividerOutput_COUNT[6];
+					8'd103	:	DATA_OUT = DividerOutput_COUNT[7];
+					8'd104	:	DATA_OUT = DividerOutput_COUNT[8];
+					8'd105	:	DATA_OUT = DividerOutput_COUNT[9];
+					8'd106	:	DATA_OUT = DividerOutput_COUNT[10];
+					8'd107	:	DATA_OUT = DividerOutput_COUNT[11];
+					8'd108	:	DATA_OUT = DividerOutput_COUNT[12];
+					8'd109	:	DATA_OUT = DividerOutput_COUNT[13];
+					8'd110	:	DATA_OUT = DividerOutput_COUNT[14];
+					8'd111	:	DATA_OUT = DividerOutput_COUNT[15];
+					8'd112	:	DATA_OUT = DividerOutput_COUNT[16];
+					8'd113	:	DATA_OUT = DividerOutput_COUNT[17];
+					8'd114	:	DATA_OUT = DividerOutput_COUNT[18];
+					8'd115	:	DATA_OUT = DividerOutput_COUNT[19];
+					8'd116	:	DATA_OUT = DividerOutput_COUNT[20];
+					8'd117	:	DATA_OUT = DividerOutput_COUNT[21];
+					8'd118	:	DATA_OUT = DividerOutput_COUNT[22];
+					8'd119	:	DATA_OUT = DividerOutput_COUNT[23];
+					8'd120	:	DATA_OUT = DividerOutput_COUNT[24];
+					8'd121	:	DATA_OUT = DividerOutput_COUNT[25];
+					8'd122	:	DATA_OUT = DividerOutput_COUNT[26];
+					8'd123	:	DATA_OUT = DividerOutput_COUNT[27];
+					8'd124	:	DATA_OUT = DividerOutput_COUNT[28];
+					8'd125	:	DATA_OUT = DividerOutput_COUNT[29];
+					8'd126	:	DATA_OUT = DividerOutput_COUNT[30];
+					8'd127	:	DATA_OUT = DividerOutput_COUNT[31];
 					default :	DATA_OUT = 8'd0;	// just set to 0 for default
 				endcase
 			end
