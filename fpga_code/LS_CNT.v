@@ -38,14 +38,13 @@ reg pulse;
 reg comp_start;
 reg comp_in_pulse;
 
-always @ (posedge CLK or posedge RST)	begin // load both bits of crest with a single CRSET_IN input
+always @ (posedge CLK or posedge RST) // load both bits of crest with a single CRSET_IN input
 	if (RST)
 		crest_sam <= 2'b00;
 	else begin
 		crest_sam[0] <= CREST_IN;
 		crest_sam[1] <= crest_sam[0];
 	end
-end
 
 always @ (*) // chose which crest is sent to comp_in
 	if(CLK_CTRL == 2'b00)
@@ -53,13 +52,11 @@ always @ (*) // chose which crest is sent to comp_in
 	else
 		comp_in = crest_sam[1];
 
-always @ (posedge CLK or posedge RST) begin // push comp_in to comp buffer and pop MSB off the buffer or reset comp buffer 
+always @ (posedge CLK or posedge RST) // push comp_in to comp buffer and pop MSB off the buffer or reset comp buffer 
 	if (RST)
 		comp <= 6'b000000;
-	else begin
+	else
 		comp <= {comp[5:1], comp_in};
-	end
-end
 
 assign comp_in_pulse = comp[1] & ~comp[2]; // if two conncurrent bits pulse, start compare
 
