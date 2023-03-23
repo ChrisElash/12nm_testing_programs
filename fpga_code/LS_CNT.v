@@ -19,106 +19,81 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module LS_CNT(
-    input CLK,
+	input CLK,
 	input clk_100m,
-    input RST_PER,//active high
-    input CREST_IN,
-    input RPG_IN,
-	 input [1:0] CLK_CTRL,
-    output reg [31:0] ERR_CNT,
-	 output reg comp_out
-    );
-	 
-	 reg crest_sam1;
-	 reg crest_sam2;
-//	 reg crest_sam3;
-	 reg comp_in,comp_in_1,comp_in_2,comp_in_3,comp_in_4,comp_in_5,comp_in_6;
-	 reg comp_en;
-	 reg pulse_delay;
-	 reg pulse;
-//	 reg self_cnt_en;
-	 reg comp_start1;
-	 wire comp_in_pulse;
-	 //wire comp_out;
-	 
-	 always @ (posedge CLK or posedge RST_PER)begin
-	 if(RST_PER) begin
-		crest_sam1 <= 0;
-		crest_sam2 <= 0;
-	 end
-	 else begin
-		crest_sam1 <= CREST_IN;
-		crest_sam2 <= crest_sam1;
-		end
-	 end
-	 
-		
-	 always @ *
-	 if (CLK_CTRL == 2'b00)
-		comp_in = crest_sam1;
-	 else
-		comp_in = crest_sam2;
-		
-	 always @(posedge CLK or posedge RST_PER ) begin
-		if (RST_PER)begin
-		comp_in_1 <= 1'b0;
-		comp_in_2 <= 1'b0;
-		comp_in_3 <= 1'b0;
-		comp_in_4 <= 1'b0;
-		comp_in_5 <= 1'b0;
-		comp_in_6 <= 1'b0;
-		end
-		else begin
-		comp_in_1 <= comp_in;
-		comp_in_2 <= comp_in_1;
-		comp_in_3 <= comp_in_2;
-		comp_in_4 <= comp_in_3;
-		comp_in_5 <= comp_in_4;
-		comp_in_6 <= comp_in_5;
-		end
-	  end
-	 assign	comp_in_pulse = comp_in_2 & ~comp_in_3;
-	 
-	 always @(posedge CLK or posedge RST_PER)begin
-		if (RST_PER)
+	input RST, // Active High
+	input CREST_IN,
+	input RPG_IN,
+	input CLK_CTRL,
+	output reg [11:0] ERR_CNT,
+	output reg comp_out
+	);
+	
+reg [1:0] crest_sam;
+reg comp_in;
+reg [5:0] comp;
+reg comp_en;
+reg pulse_delay;
+reg pulse;
+reg comp_start;
+reg comp_in_pulse;
+
+always @ (posedge CLK or posedge RST)	begin // load both bits of crest with a single CRSET_IN input
+	if (RST)
+		crest_sam <= 2'b00;
+	else begin
+		crest_sam[0] <= CREST_IN;
+		crest_sam[1] <= crest_sam[0];
+	end
+end
+
+always @ (*) // chose which crest is sent to comp_in
+	if(CLK_CTRL == 2'b00)
+		comp_in = crest_sam[0];
+	else
+		comp_in = crest_sam[1];
+
+always @ (posedge CLK or posedge RST) begin // push comp_in to comp buffer and pop MSB off the buffer or reset comp buffer 
+	if (RST)
+		comp <= 6'b000000;
+	else begin
+		comp <= {comp[5:1], comp_in};
+	end
+end
+
+assign comp_in_pulse = comp[1] & ~comp[2]; // if two conncurrent bits pulse, start compare
+
+always @ (posedge CLK or posedge RST) // enable compare on pulse
+	if (RST)
 		comp_en <= 1'b0;
-		else if (comp_in_pulse )
+	else if (comp_in_pulse)
 		comp_en <= 1'b1;
-		else
+	else
 		comp_en <= comp_en;
-		end
-	 	 always @(posedge CLK)begin
-	    pulse_delay <= comp_en;
-		pulse <= comp_en & ~ pulse_delay;	
-	 end	
-	 
-	 always @(posedge CLK or posedge RST_PER)begin
-		if (RST_PER)begin
-		comp_start1 <= 1'b0;
-		end
-		else if (pulse&RPG_IN )
-		comp_start1 <= 1'b1;
-		else
-		comp_start1 <= comp_start1;
-		end
 
-	 always @ (posedge CLK )begin
-		if(comp_start1)
-			 comp_out <= comp_in^RPG_IN;
-		else
-			comp_out <= 1'b0;	 
-	 end	
-	 
-	 	 
-	 initial begin
-		ERR_CNT <= 0;
-	 end
-	 
-	 always @ (posedge CLK or posedge RST_PER)
-	 if (RST_PER)
-		ERR_CNT <= 0;
-	 else if (comp_out == 1) //if comp_in != rpg_in
-		ERR_CNT <= ERR_CNT+1;//+1;
+always @ (posedge CLK) begin // delay the pulse one and two clks
+	pulse_delay <= comp_en;
+	pulse <= comp_en &~ pulse_delay;
+end
 
+always @ (posedge CLK or posedge RST) // create a start signal to start the input and output comparing based on if RPG_IN and pulse are both high
+	if (RST)
+		comp_start <= 1'b0;
+	else if (RPG_IN & pulse)
+		comp_start <= 1'b1;
+	else
+		comp_start = comp_start;
+
+always @ (posedge CLK) // if RPG_IN and pulse are high do a comparision of RPG_IN and comp_in
+	if (comp_start)
+		comp_out <= comp_in ^ RPG_IN;
+	else
+		comp_out <= 1'b0;
+
+always @ (posedge CLK or posedge RST)
+	if (RST)
+		ERR_CNT <= 0;
+	else if (comp_out == 1) // if comp_in != rpg_in
+		ERR_CNT <= ERR_CNT + 1;
 
 endmodule
