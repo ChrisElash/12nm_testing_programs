@@ -24,13 +24,10 @@ module LS_CNT(
 	input RST, // Active High
 	input CREST_IN,
 	input RPG_IN,
-	input CLK_CTRL,
 	output reg [11:0] ERR_CNT,
 	output reg comp_out
 	);
 	
-reg [1:0] crest_sam;
-reg comp_in;
 reg [5:0] comp;
 reg comp_en;
 reg pulse_delay;
@@ -38,25 +35,11 @@ reg pulse;
 reg comp_start;
 reg comp_in_pulse;
 
-always @ (posedge CLK or posedge RST) // load both bits of crest with a single CRSET_IN input
-	if (RST)
-		crest_sam <= 2'b00;
-	else begin
-		crest_sam[0] <= CREST_IN;
-		crest_sam[1] <= crest_sam[0];
-	end
-
-always @ (*) // chose which crest is sent to comp_in
-	if(CLK_CTRL == 2'b00)
-		comp_in = crest_sam[0];
-	else
-		comp_in = crest_sam[1];
-
 always @ (posedge CLK or posedge RST) // push comp_in to comp buffer and pop MSB off the buffer or reset comp buffer 
 	if (RST)
 		comp <= 6'b000000;
 	else
-		comp <= {comp[5:1], comp_in};
+		comp <= {comp[5:1], CREST_IN};
 
 assign comp_in_pulse = comp[1] & ~comp[2]; // if two conncurrent bits pulse, start compare
 
