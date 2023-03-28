@@ -258,8 +258,8 @@ if __name__ == '__main__':
 
             # clock gen frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + ', ' + str(clk_selects[1]) + ', ' + str(clk_selects[2]) + ', ' + str(clk_selects[3]) + " MHz"
-            data_string_write = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + ', ' + str(clk_selects[1]) + ', ' + str(clk_selects[2]) + ', ' + str(clk_selects[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + " MHz"
+            data_string_write = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             

@@ -92,7 +92,7 @@ def getDFFData():
     
 
     #read the counter for the chain of 32 bits
-    for i in range(32):
+    for i in range(12):
         clockDataDFF() # clock the next bit in
         if (GPIO.input(10)):
             error_count_bits = '1' + error_count_bits
@@ -161,7 +161,7 @@ if __name__ == '__main__':
             time.sleep(CLOCK_PERIOD)
             GPIO.output(7, GPIO.LOW)
 
-            for i in range(14): # 14 chains
+            for i in range(10): # 10 chains
             
                 
 
@@ -193,6 +193,13 @@ if __name__ == '__main__':
 
 
         except KeyboardInterrupt:   # if user presses CTRL+C end the testing
+            time_elapsed_now = time.time() - time_elapsed_start
+            elapsed = timeElapsed(time_elapsed_now)
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s "
+            data_string_write = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s " + "\n"
+            print(data_string_print)
+            dff_file.write(data_string_write)
             print("Ending Testing")
             dff_file.close()
             sys.exit()
