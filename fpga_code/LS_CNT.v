@@ -20,10 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 module LS_CNT(
 	input CLK,
-	input clk_100m,
 	input RST, // Active High
-	input CREST_IN,
-	input RPG_IN,
+	input Q,
+	input DATA,
 	output reg [11:0] ERR_CNT,
 	output reg comp_out
 	);
@@ -39,7 +38,7 @@ always @ (posedge CLK or posedge RST) // push comp_in to comp buffer and pop MSB
 	if (RST)
 		comp <= 6'b000000;
 	else
-		comp <= {comp[5:1], CREST_IN};
+		comp <= {comp[5:1], Q};
 
 assign comp_in_pulse = comp[1] & ~comp[2]; // if two conncurrent bits pulse, start compare
 
@@ -56,24 +55,24 @@ always @ (posedge CLK) begin // delay the pulse one and two clks
 	pulse <= comp_en &~ pulse_delay;
 end
 
-always @ (posedge CLK or posedge RST) // create a start signal to start the input and output comparing based on if RPG_IN and pulse are both high
+always @ (posedge CLK or posedge RST) // create a start signal to start the input and output comparing based on if DATA and pulse are both high
 	if (RST)
 		comp_start <= 1'b0;
-	else if (RPG_IN & pulse)
+	else if (DATA & pulse)
 		comp_start <= 1'b1;
 	else
 		comp_start = comp_start;
 
-always @ (posedge CLK) // if RPG_IN and pulse are high do a comparision of RPG_IN and comp_in
+always @ (posedge CLK) // if DATA and pulse are high do a comparision of DATA and comp_in
 	if (comp_start)
-		comp_out <= comp_in ^ RPG_IN;
+		comp_out <= comp_in ^ DATA;
 	else
 		comp_out <= 1'b0;
 
 always @ (posedge CLK or posedge RST)
 	if (RST)
 		ERR_CNT <= 0;
-	else if (comp_out == 1) // if comp_in != rpg_in
+	else if (comp_out == 1) // if comp_in != DATA
 		ERR_CNT <= ERR_CNT + 1;
 
 endmodule
