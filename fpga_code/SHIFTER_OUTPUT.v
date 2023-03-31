@@ -23,8 +23,10 @@ module SHIFTER_OUTPUT(
     input RST,
     input SAVE_DATA,
 
-    output [11:0] SHIFT_ERROR0,
-    output [11:0] SHIFT_ERROR1,
+    input [11:0] SHIFT_ERROR_0_0,
+    input [11:0] SHIFT_ERROR_0_1,
+    input [11:0] SHIFT_ERROR_1_0,
+    input [11:0] SHIFT_ERROR_1_1,
 
     output DATA_OUT,
 );
@@ -37,38 +39,52 @@ initial begin
     output_count_12 <= 8'd0;
 end
 
-reg [11:0] SHIFT_ERROR0_SAVE;
-reg [11:0] SHIFT_ERROR1_SAVE;
+reg [11:0] SHIFT_ERROR_SAVE_0_0;
+reg [11:0] SHIFT_ERROR_SAVE_0_1;
+reg [11:0] SHIFT_ERROR_SAVE_1_0;
+reg [11:0] SHIFT_ERROR_SAVE_1_1
 
 reg [11:0] chain_select;
 
 initial begin
-    chain_select <= SHIFT_ERROR0_SAVE;
+    chain_select <= SHIFT_ERROR_SAVE_0_0;
 end
 
 always @ (posedge SAVE_DATA) // save the current error count to send to output
     begin
-        SHIFT_ERROR0_SAVE <= SHIFT_ERROR0;
-        SHIFT_ERROR1_SAVE <= SHIFT_ERROR1;
+        SHIFT_ERROR_SAVE_0_0 <= SHIFT_ERROR_0_0;
+        SHIFT_ERROR_SAVE_0_1 <= SHIFT_ERROR_0_1;
+        SHIFT_ERROR_SAVE_1_0 <= SHIFT_ERROR_1_0;
+        SHIFT_ERROR_SAVE_1_1 <= SHIFT_ERROR_1_1;
     end
 
 always @ (posedge DATA_CLK) // Using a single set of data to select the data in a serial fashion
     if (~RST) begin
         	output_count <= 10'd0;
 			output_count_12 <= 8'd0;
-			chain_select <= SHIFT_ERROR0_SAVE;
+			chain_select <= SHIFT_ERROR_SAVE_0_0;
     end
     else begin
         case(output_count)
             10'd11: begin
                 output_count <= output_count + 1'b1;
                 output_count_12 <= 8'd0;
-                chain_select <= SHIFT_ERROR1_SAVE;
+                chain_select <= SHIFT_ERROR_SAVE_0_1;
             end
-            10'd23: begin // end of chains, go back to start
+            10'd23: begin
+                output_count <= output_count + 1'b1;
+                output_count_12 <= 8'd0;
+                chain_select <= SHIFT_ERROR_SAVE_1_0;
+            end
+            10'd35: begin
+                output_count <= output_count + 1'b1;
+                output_count_12 <= 8'd0;
+                chain_select <= SHIFT_ERROR_SAVE_1_1;
+            end
+            10'd47: begin // end of chains, go back to start
                 output_count <= 10'd0;
                 output_count_12 <= 8'd0;
-                chain_select <= SHIFT_ERROR0_SAVE;
+                chain_select <= SHIFT_ERROR_SAVE_0_0;
             end
             default: begin // when not at the end of an indiviual chain, count up
                 output_count <= output_count + 1'b1;
