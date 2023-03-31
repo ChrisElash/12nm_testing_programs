@@ -70,7 +70,7 @@ always @ (posedge CLK) // if DATA and pulse are high do a comparision of DATA an
 		comp_out <= 1'b0;
 
 always @ (posedge CLK or posedge RST)
-	if (RST)
+	if (~RST)
 		ERR_CNT <= 0;
 	else if (comp_out == 1) // if comp_in != DATA
 		ERR_CNT <= ERR_CNT + 1;
