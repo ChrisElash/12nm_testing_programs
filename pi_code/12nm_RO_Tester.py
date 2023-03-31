@@ -76,95 +76,173 @@ def clockDataRO():
 
 """
 Returns a list containing the frequencies of the ROs in MHz.
-0 - Inverter
-1 - NAND
-2 - NOR
-3 - CLK
+0 - Inverter0
+1 - NAND0
+2 - NOR0
+3 - CLK0
+4 - Inverter1
+5 - NAND1
+6 - NOR1
+7 - CLK1
 Returns: list of frequencies for the ROs
 """
 def getROData():
 
     # variables for frequencies
-    frequencies = ['', '', '', '']
-    INV_freq = 0
-    NAND_freq = 0
-    NOR_freq = 0
-    CLK_freq = 0
+    frequencies = ['', '', '', '','', '', '', '']
+    INV_freq0 = 0
+    NAND_freq0 = 0
+    NOR_freq0 = 0
+    CLK_freq0 = 0
+    INV_freq1 = 0
+    NAND_freq1 = 0
+    NOR_freq1 = 0
+    CLK_freq1 = 0
 
     # to hold the 32 bits for each counter
-    INV_count_bits = ''
-    NAND_count_bits = ''
-    NOR_count_bits = ''
-    CLK_count_bits = ''
-
+    INV_count_bits0 = ''
+    NAND_count_bits0 = ''
+    NOR_count_bits0 = ''
+    CLK_count_bits0 = ''
+    INV_count_bits1 = ''
+    NAND_count_bits1 = ''
+    NOR_count_bits1 = ''
+    CLK_count_bits1 = ''
+    # Start Reading in bits for chip 0
     #read the counter for the inverter RO
     for i in range(32):
         clockDataRO() # clock the next bit in
         if (GPIO.input(35)):
-            INV_count_bits = '1' + INV_count_bits
+            INV_count_bits0 = '1' + INV_count_bits0
         else:
-            INV_count_bits = '0' + INV_count_bits
+            INV_count_bits0 = '0' + INV_count_bits0
         
     # now convert from binary to int
-    INV_count_int = int(INV_count_bits, 2)
+    INV_count_int = int(INV_count_bits0, 2)
 
     # calculate the frequency in MHz
-    INV_freq = (INV_count_int / 0.1) / 1E6
+    INV_freq0 = (INV_count_int / 0.1) / 1E6
 
 
     #read the counter for the NAND RO
     for i in range(32):
         clockDataRO() # clock the next bit in
         if (GPIO.input(35)):
-            NAND_count_bits = '1' + NAND_count_bits
+            NAND_count_bits0 = '1' + NAND_count_bits0
         else:
-            NAND_count_bits = '0' + NAND_count_bits
+            NAND_count_bits0 = '0' + NAND_count_bits0
         
     
     # now convert from binary to int
-    NAND_count_int = int(NAND_count_bits, 2)
+    NAND_count_int = int(NAND_count_bits0, 2)
 
     # calculate the frequency in MHz
-    NAND_freq = (NAND_count_int / 0.1) / 1E6
+    NAND_freq0 = (NAND_count_int / 0.1) / 1E6
 
 
     #read the counter for the NOR RO
     for i in range(32):
         clockDataRO() # clock the next bit in
         if (GPIO.input(35)):
-            NOR_count_bits = '1' + NOR_count_bits
+            NOR_count_bits0 = '1' + NOR_count_bits0
         else:
-            NOR_count_bits = '0' + NOR_count_bits
+            NOR_count_bits0 = '0' + NOR_count_bits0
         
     
     # now convert from binary to int
-    NOR_count_int = int(NOR_count_bits, 2)
+    NOR_count_int = int(NOR_count_bits0, 2)
 
     # calculate the frequency in MHz
-    NOR_freq = (NOR_count_int / 0.1) / 1E6
+    NOR_freq0 = (NOR_count_int / 0.1) / 1E6
 
 
     #read the counter for the CLK GEN
     for i in range(32):
         clockDataRO() # clock the next bit in
         if (GPIO.input(35)):
-            CLK_count_bits = '1' + CLK_count_bits
+            CLK_count_bits0 = '1' + CLK_count_bits0
         else:
-            CLK_count_bits = '0' + CLK_count_bits
+            CLK_count_bits0 = '0' + CLK_count_bits0
         
     
     # now convert from binary to int
-    CLK_count_int = int(CLK_count_bits, 2)
+    CLK_count_int = int(CLK_count_bits0, 2)
 
     # calculate the frequency in MHz
-    CLK_freq = (CLK_count_int / 0.1) / 1E6
+    CLK_freq0 = (CLK_count_int / 0.1) / 1E6
     
-    # now load the list and return
-    frequencies[0] = INV_freq
-    frequencies[1] = NAND_freq
-    frequencies[2] = NOR_freq
-    frequencies[3] = CLK_freq
+    # Start reading in bits for Chip 1
+     #read the counter for the inverter RO
+    for i in range(32):
+        clockDataRO() # clock the next bit in
+        if (GPIO.input(35)):
+            INV_count_bits1= '1' + INV_count_bits1
+        else:
+            INV_count_bits1 = '0' + INV_count_bits1
+        
+    # now convert from binary to int
+    INV_count_int = int(INV_count_bits1, 2)
 
+    # calculate the frequency in MHz
+    INV_freq1 = (INV_count_int / 0.1) / 1E6
+
+
+    #read the counter for the NAND RO
+    for i in range(32):
+        clockDataRO() # clock the next bit in
+        if (GPIO.input(35)):
+            NAND_count_bits1 = '1' + NAND_count_bits1
+        else:
+            NAND_count_bits1 = '0' + NAND_count_bits1
+        
+    
+    # now convert from binary to int
+    NAND_count_int = int(NAND_count_bits1, 2)
+
+    # calculate the frequency in MHz
+    NAND_freq1 = (NAND_count_int / 0.1) / 1E6
+
+
+    #read the counter for the NOR RO
+    for i in range(32):
+        clockDataRO() # clock the next bit in
+        if (GPIO.input(35)):
+            NOR_count_bits1 = '1' + NOR_count_bits1
+        else:
+            NOR_count_bits1 = '0' + NOR_count_bits1
+        
+    
+    # now convert from binary to int
+    NOR_count_int = int(NOR_count_bits1, 2)
+
+    # calculate the frequency in MHz
+    NOR_freq1 = (NOR_count_int / 0.1) / 1E6
+
+
+    #read the counter for the CLK GEN
+    for i in range(32):
+        clockDataRO() # clock the next bit in
+        if (GPIO.input(35)):
+            CLK_count_bits1 = '1' + CLK_count_bits1
+        else:
+            CLK_count_bits1 = '0' + CLK_count_bits1
+        
+    
+    # now convert from binary to int
+    CLK_count_int = int(CLK_count_bits1, 2)
+
+    # calculate the frequency in MHz
+    CLK_freq1 = (CLK_count_int / 0.1) / 1E6
+       
+    # now load the list and return
+    frequencies[0] = INV_freq0
+    frequencies[1] = NAND_freq0
+    frequencies[2] = NOR_freq0
+    frequencies[3] = CLK_freq0
+    frequencies[4] = INV_freq1
+    frequencies[5] = NAND_freq1
+    frequencies[6] = NOR_freq1
+    frequencies[7] = CLK_freq1
     return frequencies
 
 
@@ -209,10 +287,14 @@ if __name__ == '__main__':
         try:
 
             # now do the testing for the ROs
-            inv_selects = [0, 0, 0, 0]
-            nand_selects = [0, 0, 0, 0]
-            nor_selects = [0, 0, 0 ,0]
-            clk_selects = [0, 0, 0 ,0]
+            inv_selects0 = [0, 0, 0, 0]
+            nand_selects0 = [0, 0, 0, 0]
+            nor_selects0 = [0, 0, 0 ,0]
+            clk_selects0 = [0, 0, 0 ,0]
+            inv_selects1 = [0, 0, 0, 0]
+            nand_selects1 = [0, 0, 0, 0]
+            nor_selects1 = [0, 0, 0 ,0]
+            clk_selects1 = [0, 0, 0 ,0]
 
             for i in range(4):
             
@@ -225,41 +307,74 @@ if __name__ == '__main__':
                 # now read the data from the ROs
                 RO_data = getROData()
 
-                inv_selects[i] = RO_data[0]
-                nand_selects[i] = RO_data[1]
-                nor_selects[i] = RO_data[2]
-                clk_selects[i] = RO_data[3]
+                inv_selects0[i] = RO_data[0]
+                nand_selects0[i] = RO_data[1]
+                nor_selects0[i] = RO_data[2]
+                clk_selects0[i] = RO_data[3]
+                inv_selects1[i] = RO_data[4]
+                nand_selects1[i] = RO_data[5]
+                nor_selects1[i] = RO_data[6]
+                clk_selects1[i] = RO_data[7]
                 
                 time.sleep(0.01)
             
             # now print out and log the data
                 
-
-            # inverter frequency
+            # TestChip 0 -------------------------------------------------------------------------------------
+            # inverter0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " Inverter RO Frequencies: " + str(inv_selects[0]) + ', ' + str(inv_selects[1]) + ', ' + str(inv_selects[2]) + ', ' + str(inv_selects[3]) + " MHz"
-            data_string_write = CurrentTime + " Inverter RO Frequencies: " + str(inv_selects[0]) + ', ' + str(inv_selects[1]) + ', ' + str(inv_selects[2]) + ', ' + str(inv_selects[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
-            # nand frequency
+            # nand0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NAND RO Frequencies: " + str(nand_selects[0]) + ', ' + str(nand_selects[1]) + ', ' + str(nand_selects[2]) + ', ' + str(nand_selects[3]) + " MHz"
-            data_string_write = CurrentTime + " NAND RO Frequencies: " + str(nand_selects[0]) + ', ' + str(nand_selects[1]) + ', ' + str(nand_selects[2]) + ', ' + str(nand_selects[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
-            # nor frequency
+            # nor0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NOR RO Frequencies: " + str(nor_selects[0]) + ', ' + str(nor_selects[1]) + ', ' + str(nor_selects[2]) + ', ' + str(nor_selects[3]) + " MHz"
-            data_string_write = CurrentTime + " NOR RO Frequencies: " + str(nor_selects[0]) + ', ' + str(nor_selects[1]) + ', ' + str(nor_selects[2]) + ', ' + str(nor_selects[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
-            # clock gen frequency
+            # clock gen0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + " MHz"
-            data_string_write = CurrentTime + " CLK GEN Frequencies: " + str(clk_selects[0]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " CLK GEN 0 Frequency: " + str(clk_selects0[0]) + " MHz"
+            data_string_write = CurrentTime + " CLK GEN  0 Frequency: " + str(clk_selects0[0]) + " MHz" + "\n"
+            print(data_string_print)
+            ro_file.write(data_string_write)
+            
+            # TestChip 1 -------------------------------------------------------------------------------------
+            # inverter1 frequency
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz" + "\n"
+            print(data_string_print)
+            ro_file.write(data_string_write)
+            
+            # nand1 frequency
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz" + "\n"
+            print(data_string_print)
+            ro_file.write(data_string_write)
+
+            # nor1 frequency
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz" + "\n"
+            print(data_string_print)
+            ro_file.write(data_string_write)
+
+            # clock gen1 frequency
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + " CLK GEN 0 Frequency: " + str(clk_selects1[0]) + " MHz"
+            data_string_write = CurrentTime + " CLK GEN  0 Frequency: " + str(clk_selects1[0]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
