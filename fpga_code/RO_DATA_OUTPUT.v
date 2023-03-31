@@ -339,7 +339,7 @@ module RO_DATA_OUTPUT(
 					8'd253  :       DATA_OUT = DividerOutput_COUNT1[29];
 					8'd254  :       DATA_OUT = DividerOutput_COUNT1[30];
 					8'd255  :       DATA_OUT = DividerOutput_COUNT1[31];
-					default :	DATA_OUT = 8'd0;	// just set to 0 for default
+					default :		DATA_OUT = 8'd0;	// just set to 0 for default
 				endcase
 			end
 
