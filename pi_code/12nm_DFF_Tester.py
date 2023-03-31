@@ -154,7 +154,9 @@ if __name__ == '__main__':
         try:
 
             # now do the testing for the ROs
-            output_chains = []
+            output_chains0 = []
+            output_chains1 = []
+
             
             # first save the counter data
             GPIO.output(7, GPIO.HIGH) # reset signal
@@ -166,29 +168,34 @@ if __name__ == '__main__':
                 
 
                 error_count_chain = getDFFData()
+                output_chains0.append(error_count_chain)
+                
+            # now print out and log the data
+                
+            for i in range(10): # 10 chains
+            
+                
 
-                output_chains.append(error_count_chain)
+                error_count_chain = getDFFData()
+                output_chains1.append(error_count_chain)
                 
             # now print out and log the data
                 
 
             # nor frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + ' ' + str(output_chains)
-            data_string_write = CurrentTime + ' ' + str(output_chains) + "\n"
+            data_string_print = CurrentTime + ' ' + 'Chip 0 ' + str(output_chains0)
+            data_string_write = CurrentTime + ' ' + 'Chip 0 ' + str(output_chains0) + "\n"
+            print(data_string_print)
+            dff_file.write(data_string_write)
+
+            # nor frequency
+            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
+            data_string_print = CurrentTime + ' ' + 'Chip 1 ' + str(output_chains1)
+            data_string_write = CurrentTime + ' ' + 'Chip 1 ' +str(output_chains1) + "\n"
             print(data_string_print)
             dff_file.write(data_string_write)
             
-            # time elapsed
-            time_elapsed_now = time.time() - time_elapsed_start
-            elapsed = timeElapsed(time_elapsed_now)
-            CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s "
-            data_string_write = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s " + "\n"
-            #print(data_string_print)
-            #dff_file.write(data_string_write)
-
-            #print("\n")
             time.sleep(0.5)
 
 
