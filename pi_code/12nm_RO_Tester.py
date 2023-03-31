@@ -323,58 +323,58 @@ if __name__ == '__main__':
             # TestChip 0 -------------------------------------------------------------------------------------
             # inverter0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz"
-            data_string_write = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " Inverter Chip 0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " Inverter Chip 0 RO Frequencies: " + str(inv_selects0[0]) + ', ' + str(inv_selects0[1]) + ', ' + str(inv_selects0[2]) + ', ' + str(inv_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
             # nand0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz"
-            data_string_write = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NAND Chip 0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " NAND Chip 0 RO Frequencies: " + str(nand_selects0[0]) + ', ' + str(nand_selects0[1]) + ', ' + str(nand_selects0[2]) + ', ' + str(nand_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
             # nor0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz"
-            data_string_write = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NOR Chip 0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz"
+            data_string_write = CurrentTime + " NOR Chip 0 RO Frequencies: " + str(nor_selects0[0]) + ', ' + str(nor_selects0[1]) + ', ' + str(nor_selects0[2]) + ', ' + str(nor_selects0[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
             # clock gen0 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " CLK GEN 0 Frequency: " + str(clk_selects0[0]) + " MHz"
-            data_string_write = CurrentTime + " CLK GEN  0 Frequency: " + str(clk_selects0[0]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " CLK GEN Chip 0 Frequency: " + str(clk_selects0[0]) + " MHz"
+            data_string_write = CurrentTime + " CLK GEN Chip 0 Frequency: " + str(clk_selects0[0]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
             # TestChip 1 -------------------------------------------------------------------------------------
             # inverter1 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz"
-            data_string_write = CurrentTime + " Inverter0 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " Inverter Chip 1 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " Inverter Chip 1 RO Frequencies: " + str(inv_selects1[0]) + ', ' + str(inv_selects1[1]) + ', ' + str(inv_selects1[2]) + ', ' + str(inv_selects1[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
             # nand1 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz"
-            data_string_write = CurrentTime + " NAND0 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NAND Chip 1 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " NAND Chip 1 RO Frequencies: " + str(nand_selects1[0]) + ', ' + str(nand_selects1[1]) + ', ' + str(nand_selects1[2]) + ', ' + str(nand_selects1[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
             # nor1 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz"
-            data_string_write = CurrentTime + " NOR0 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " NOR Chip 1 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz"
+            data_string_write = CurrentTime + " NOR Chip 1 RO Frequencies: " + str(nor_selects1[0]) + ', ' + str(nor_selects1[1]) + ', ' + str(nor_selects1[2]) + ', ' + str(nor_selects1[3]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
 
             # clock gen1 frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + " CLK GEN 0 Frequency: " + str(clk_selects1[0]) + " MHz"
-            data_string_write = CurrentTime + " CLK GEN  0 Frequency: " + str(clk_selects1[0]) + " MHz" + "\n"
+            data_string_print = CurrentTime + " CLK GEN Chip 1 Frequency: " + str(clk_selects1[0]) + " MHz"
+            data_string_write = CurrentTime + " CLK GEN Chip 1 Frequency: " + str(clk_selects1[0]) + " MHz" + "\n"
             print(data_string_print)
             ro_file.write(data_string_write)
             
