@@ -87,11 +87,11 @@ def getDFFData():
     error_count = 0
     
 
-    # to hold the 32 bits for each counter
+    # to hold the 12 bits for each counter
     error_count_bits = ''
     
 
-    #read the counter for the chain of 32 bits
+    #read the counter for the chain of 12 bits
     for i in range(12):
         clockDataDFF() # clock the next bit in
         if (GPIO.input(10)):
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # open up files to save the test data with start time in name
     StartTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
     StartTime_File = str(StartTime).replace(':','-')
-    dff_file = open("/home/pi/Desktop/%s-DFF_Test.txt" %(StartTime_File),"w")
+    dff_file = open("/home/pi/Desktop/%s-DFF_EXT_Test.txt" %(StartTime_File),"w")
     
     time_elapsed_start = time.time()
 
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     print("                                              ")
     print("                                              ")
     time.sleep(0.5)
-    print("Welcome to the 22nm FDSOI DFF Teseter\n")
+    print("Welcome to the 12nm FDSOI DFF External Tester\n")
     print ("Press 'CTRL+C' when done testing to terminate")
     time.sleep(1)
 
@@ -172,7 +172,7 @@ if __name__ == '__main__':
                 
             # now print out and log the data
                 
-            for i in range(10): # 10 chains
+            for i in range(10): # 10 chains, the current process requires that chip 1's chains always are outputted second in the accompanying verilog
             
                 
 
