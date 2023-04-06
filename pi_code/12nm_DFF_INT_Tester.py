@@ -3,8 +3,8 @@
 '''
 Created by Christopher Elash in September 2021
 
-This test program is meant for the 22nm FDSOI test chip and will test the chips 
-DFF .
+This test program is meant for the 12nm test chip and will test the chips 
+DFF using the internal clock generator to drive the logic.
 
 Please read any further documentation provided with this code to gain a better of understanding of how it works.
 Also ensure that the FPGA and testboard are properly set up before running this test.
