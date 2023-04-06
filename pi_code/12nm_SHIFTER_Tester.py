@@ -1,10 +1,10 @@
 #! /usr/bin/python
 ############################################################
 '''
-Created by Christopher Elash in September 2021 and Modifed for 12nm by Dylan Lambert
+Created by Christopher Elash for 22nm in September 2021 and Modifed for 12nm by Dylan Lambert
 
 This test program is meant for the 12nm test chip and will test the chips 
-DFF using the internal clock generator to drive the logic.
+shifter circuits for SEUs.
 
 Please read any further documentation provided with this code to gain a better of understanding of how it works.
 Also ensure that the FPGA and testboard are properly set up before running this test.
@@ -66,7 +66,7 @@ Sends a clock pulse to the RO data out clk
 
 Returns: nothing
 """
-def clockDataDFF():
+def clockDataSHIFTER():
     GPIO.output(8, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
     GPIO.output(8, GPIO.LOW)
@@ -93,7 +93,7 @@ def getDFFData():
 
     #read the counter for the chain of 12 bits
     for i in range(12):
-        clockDataDFF() # clock the next bit in
+        clockDataSHIFTER() # clock the next bit in
         if (GPIO.input(10)):
             error_count_bits = '1' + error_count_bits
         else:
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # open up files to save the test data with start time in name
     StartTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
     StartTime_File = str(StartTime).replace(':','-')
-    dff_file = open("/home/pi/Desktop/%s-DFF_INT_Test.txt" %(StartTime_File),"w")
+    shifter_file = open("/home/pi/Desktop/%s-Shifter_Test.txt" %(StartTime_File),"w")
     
     time_elapsed_start = time.time()
 
@@ -121,22 +121,20 @@ if __name__ == '__main__':
     
     GPIO.setwarnings(False)
     time.sleep(0.5)
-    print("               _____  ______ ______           ")
-    print("              |  __ \|  ____|  ____|          ")
-    print("              | |  | | |__  | |__             ")
-    print("              | |  | |  __| |  __|            ")
-    print("              | |__| | |    | |               ")
-    print("  _______ ____|_____/|_|____|_| ______ _____  ")
-    print(" |__   __|  ____|/ ____|__   __|  ____|  __ \ ")
-    print("    | |  | |__  | (___    | |  | |__  | |__) |")
-    print("    | |  |  __|  \___ \   | |  |  __| |  _  / ")
-    print("    | |  | |____ ____) |  | |  | |____| | \ \ ")
-    print("    |_|  |______|_____/   |_|  |______|_|  \_\\")
-    print("                                              ")
-    print("                                              ")
-    print("                                              ")
+    print("   _____ _    _ _____ ______ _______ ______ _____   ")
+    print("  / ____| |  | |_   _|  ____|__   __|  ____|  __ \  ")
+    print(" | (___ | |__| | | | | |__     | |  | |__  | |__) | ")
+    print("  \___ \|  __  | | | |  __|    | |  |  __| |  _  /  ")
+    print("  ____) | |  | |_| |_| |       | |  | |____| | \ \  ")
+    print(" |_____/|_|_ |_|_____|_|__ ____|_| _|______|_|_ \_\ ")
+    print("    |__   __|  ____|/ ____|__   __|  ____|  __ \    ")
+    print("       | |  | |__  | (___    | |  | |__  | |__) |   ")
+    print("       | |  |  __|  \___ \   | |  |  __| |  _  /    ")
+    print("       | |  | |____ ____) |  | |  | |____| | \ \    ")
+    print("       |_|  |______|_____/   |_|  |______|_|  \_\   ")
+    print("                                                    ")
     time.sleep(0.5)
-    print("Welcome to the 12nm FDSOI DFF Internal Tester\n")
+    print("Welcome to the 12nm FDSOI Shifter Circuit Tester\n")
     print ("Press 'CTRL+C' when done testing to terminate")
     time.sleep(1)
 
@@ -144,7 +142,7 @@ if __name__ == '__main__':
     StartTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
     print("The beginning time: ", StartTime)
     data_string_write = "The beginning time: " + StartTime + "\n"
-    dff_file.write(data_string_write)
+    shifter_file.write(data_string_write)
 
     time.sleep(0.5)
 
@@ -153,9 +151,9 @@ if __name__ == '__main__':
     while True:
         try:
 
-            # now do the testing for the ROs
-            output_chains0 = []
-            output_chains1 = []
+            # do testing for the shifter circuits
+            count_output0 = []
+            count_output1 = []
 
             
             # first save the counter data
@@ -163,38 +161,30 @@ if __name__ == '__main__':
             time.sleep(CLOCK_PERIOD)
             GPIO.output(7, GPIO.LOW)
 
-            for i in range(10): # 10 chains from Chip 0
-            
-                
-
-                error_count_chain = getDFFData()
-                output_chains0.append(error_count_chain)
+            for i in range(2): # 2 Shifters
+                error_count_shift = getDFFData()
+                count_output0.append(error_count_shift)
                 
             # now print out and log the data
                 
-            for i in range(10): # 10 chains from Chip 1, the current process requires that chip 1's chains always are outputted second in the accompanying verilog
-            
-                
-
-                error_count_chain = getDFFData()
-                output_chains1.append(error_count_chain)
+            for i in range(2): # 2 Shifters
+                error_count_shift = getDFFData()
+                count_output1.append(error_count_shift)
                 
             # now print out and log the data
-                
-
-            # nor frequency
+            
+            # SEU Count
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + ' ' + 'Chip 0 ' + str(output_chains0)
-            data_string_write = CurrentTime + ' ' + 'Chip 0 ' + str(output_chains0) + "\n"
+            data_string_print = CurrentTime + ' ' + 'Chip 0 ' + str(count_output0)
+            data_string_write = CurrentTime + ' ' + 'Chip 0 ' + str(count_output0) + "\n"
             print(data_string_print)
-            dff_file.write(data_string_write)
+            shifter_file.write(data_string_write)
 
-            # nor frequency
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + ' ' + 'Chip 1 ' + str(output_chains1)
-            data_string_write = CurrentTime + ' ' + 'Chip 1 ' +str(output_chains1) + "\n"
+            data_string_print = CurrentTime + ' ' + 'Chip 1 ' + str(count_output1)
+            data_string_write = CurrentTime + ' ' + 'Chip 1 ' + str(count_output1) + "\n"
             print(data_string_print)
-            dff_file.write(data_string_write)
+            shifter_file.write(data_string_write)
             
             time.sleep(0.5)
 
@@ -206,7 +196,7 @@ if __name__ == '__main__':
             data_string_print = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s "
             data_string_write = CurrentTime + " Time Elapsed: " + str(elapsed[0]) + "d " + str(elapsed[1]) + "h " + str(elapsed[2]) + "m " + str(elapsed[3]) + "s " + "\n"
             print(data_string_print)
-            dff_file.write(data_string_write)
+            shifter_file.write(data_string_write)
             print("Ending Testing")
-            dff_file.close()
+            shifter_file.close()
             sys.exit()
