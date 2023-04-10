@@ -171,6 +171,9 @@ def getROData():
     # calculate the frequency in MHz
     CLK_freq0 = (CLK_count_int / 0.1) / 1E6
     
+    # since we are reading the clock from the divider output the actual frequency is 64 times the reading that we get out, therefore multiply by 64 to get the frequency
+    CLK_freq0 = CLK_freq0 * 64
+
     # Start reading in bits for Chip 1
      #read the counter for the inverter RO
     for i in range(32):
@@ -233,6 +236,9 @@ def getROData():
 
     # calculate the frequency in MHz
     CLK_freq1 = (CLK_count_int / 0.1) / 1E6
+
+    # since we are reading the clock from the divider output the actual frequency is 64 times the reading that we get out, therefore multiply by 64 to get the frequency
+    CLK_freq1 = CLK_freq1 * 64
        
     # now load the list and return
     frequencies[0] = INV_freq0
