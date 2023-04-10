@@ -161,13 +161,13 @@ if __name__ == '__main__':
             time.sleep(CLOCK_PERIOD)
             GPIO.output(7, GPIO.LOW)
 
-            for i in range(2): # 2 Shifters
+            for i in range(2): # 2 Shifters, Chip 0 is outputted first
                 error_count_shift = getDFFData()
                 count_output0.append(error_count_shift)
                 
             # now print out and log the data
                 
-            for i in range(2): # 2 Shifters
+            for i in range(2): # 2 Shifters, Chip 1 is outputted second
                 error_count_shift = getDFFData()
                 count_output1.append(error_count_shift)
                 
@@ -175,14 +175,14 @@ if __name__ == '__main__':
             
             # SEU Count
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + ' ' + 'Chip 0 ' + str(count_output0)
-            data_string_write = CurrentTime + ' ' + 'Chip 0 ' + str(count_output0) + "\n"
+            data_string_print = CurrentTime + ' ' + 'Chip 0 [Shifter0, Shifter1]: ' + str(count_output0)
+            data_string_write = CurrentTime + ' ' + 'Chip 0 [Shifter0, Shifter1]: ' + str(count_output0) + "\n"
             print(data_string_print)
             shifter_file.write(data_string_write)
 
             CurrentTime = time.strftime("%Y_%m_%d_%H:%M:%S", time.gmtime())
-            data_string_print = CurrentTime + ' ' + 'Chip 1 ' + str(count_output1)
-            data_string_write = CurrentTime + ' ' + 'Chip 1 ' + str(count_output1) + "\n"
+            data_string_print = CurrentTime + ' ' + 'Chip 1 [Shifter0, Shifter1]: ' + str(count_output1)
+            data_string_write = CurrentTime + ' ' + 'Chip 1 [Shifter0, Shifter1]: ' + str(count_output1) + "\n"
             print(data_string_print)
             shifter_file.write(data_string_write)
             
