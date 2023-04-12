@@ -115,7 +115,6 @@ always @ (posedge DATA_CLK) begin
             8'd9    :   DATA_OUT = chain_select[9];
             8'd10    :   DATA_OUT = chain_select[10];
             8'd11    :   DATA_OUT = chain_select[11];
-            8'd12    :   DATA_OUT = chain_select[12];
             default :   DATA_OUT = 1'b0;
         endcase
     end
