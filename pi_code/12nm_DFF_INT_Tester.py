@@ -21,6 +21,9 @@ import sys
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # use the actual pin number 
+GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (shift clk)
+GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (clear)
+GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (load)
 GPIO.setup(7, GPIO.OUT, initial = GPIO.LOW) # the save pin for collecting the error registers (posedge)
 GPIO.setup(8, GPIO.OUT, initial = GPIO.LOW) # the data clk to get the counter data from the dffs
 GPIO.setup(10, GPIO.IN) # the data out for the counters of the dff
@@ -73,6 +76,12 @@ def clockDataDFF():
     time.sleep(CLOCK_PERIOD)
 
 
+def clockShiftClk():
+    GPIO.output(9999, GPIO.HIGH)
+    time.sleep(CLOCK_PERIOD)
+    GPIO.output(9999, GPIO.LOW)
+    time.sleep(CLOCK_PERIOD)
+
 """
 Returns a list containing the frequencies of the ROs in MHz.
 0 - Inverter
@@ -89,7 +98,6 @@ def getDFFData():
 
     # to hold the 12 bits for each counter
     error_count_bits = ''
-    
 
     #read the counter for the chain of 12 bits
     for i in range(12):
@@ -157,7 +165,13 @@ if __name__ == '__main__':
             output_chains0 = []
             output_chains1 = []
 
-            
+            GPIO.output(9999, GPIO.HIGH) # load
+            clockShiftClk()
+            GPIO.output(9999, GPIO.HIGH) # load
+
+            for k in range(12):
+                clockShiftClk()
+
             # first save the counter data
             GPIO.output(7, GPIO.HIGH) # reset signal
             time.sleep(CLOCK_PERIOD)
@@ -165,8 +179,6 @@ if __name__ == '__main__':
 
             for i in range(10): # 10 chains from Chip 0
             
-                
-
                 error_count_chain = getDFFData()
                 output_chains0.append(error_count_chain)
                 
@@ -174,8 +186,6 @@ if __name__ == '__main__':
                 
             for i in range(10): # 10 chains from Chip 1, the current process requires that chip 1's chains always are outputted second in the accompanying verilog
             
-                
-
                 error_count_chain = getDFFData()
                 output_chains1.append(error_count_chain)
                 
