@@ -21,7 +21,6 @@
 module DFF_DATA_OUTPUT(
     input shift_clk,
     input load,
-    input RST,
     input Q0,
     input Q1,
     input Q2,
