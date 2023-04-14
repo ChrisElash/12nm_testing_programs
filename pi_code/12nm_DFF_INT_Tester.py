@@ -75,7 +75,11 @@ def clockDataDFF():
     GPIO.output(8, GPIO.LOW)
     time.sleep(CLOCK_PERIOD)
 
+"""
+Sends a Clock Pulse For Shift Clock, used to pull out saved data from the PISO
 
+Returns: Nothing
+"""
 def clockShiftClk():
     GPIO.output(9999, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
@@ -167,13 +171,13 @@ if __name__ == '__main__':
 
             GPIO.output(9999, GPIO.HIGH) # load
             clockShiftClk()
-            GPIO.output(9999, GPIO.HIGH) # load
+            GPIO.output(9999, GPIO.LOW) # load
 
             for k in range(12):
                 clockShiftClk()
 
             # first save the counter data
-            GPIO.output(7, GPIO.HIGH) # reset signal
+            GPIO.output(7, GPIO.HIGH) # output circuit functional reset reset signal
             time.sleep(CLOCK_PERIOD)
             GPIO.output(7, GPIO.LOW)
 
