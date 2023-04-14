@@ -14,7 +14,7 @@
                     <mxGeometry x="460" y="870" width="260" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="" style="whiteSpace=wrap;html=1;aspect=fixed;align=center;" vertex="1" parent="1">
-                    <mxGeometry x="1015" y="655" width="1030" height="1030" as="geometry"/>
+                    <mxGeometry x="1015" y="650" width="1030" height="1030" as="geometry"/>
                 </mxCell>
                 <mxCell id="7" value="FPGA" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
                     <mxGeometry x="1015" y="655" width="100" height="40" as="geometry"/>
