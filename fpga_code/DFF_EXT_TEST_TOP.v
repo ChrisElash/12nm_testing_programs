@@ -28,10 +28,13 @@ module DFF_EXT_TEST_TOP(
     input save_data_dff_pi,
     input data_clk_dff_pi,
     output data_out_dff_pi,
-    input reset_RO_pi;
+    input reset_pi;
     input read_data_RO_pi;
     input data_clk_RO_pi;
-    input data_out_RO_pi;
+    output data_out_RO_pi;
+    output data_out_SHIFT_pi,
+    input data_clk_SHIFT_pi,
+    input read_data_SHIFT_pi,
 
     // Output From TestChip Chains
     input DB_DFFQ0_0,
@@ -68,6 +71,15 @@ module DFF_EXT_TEST_TOP(
     input DividerOutput0;
     // Shared
     output [1:0] C; // Internal Clock Gen Freqency Control
+    // SHIFTER Module Signals
+    input SHIFT_OUT0_0,
+    input SHIFT_OUT0_1,
+    input SHIFT_OUT1_0,
+    input SHIFT_OUT1_1,
+    output SHIFT_INPUT0_0,
+    output SHIFT_INPUT0_1,
+    output SHIFT_INPUT1_0,
+    output SHIFT_INPUT1_1,
 );
 
 // CLK GEN wires
@@ -108,7 +120,7 @@ assign DAT_DUT == 1'b1;
 
 wire w_rst;
 wire RST_PER;
-assign RST_PER = ~reset_RO_pi;
+assign RST_PER = ~reset_pi;
 assign w_rst = ~(RST_B & ~RST_PER);
 
 CLK_GEN_TOP CLK_GEN_TOP(
@@ -302,6 +314,12 @@ wire [31:0] INV_COUNT1;
 wire [31:0] NAND_COUNT1;
 wire [31:0] NOR_COUNT1;
 wire [31:0] DividerOutput_COUNT1;
+// SHIFTER_TESTER WIREs
+wire [11:0] SHIFT_ERROR_0_0;
+wire [11:0] SHIFT_ERROR_0_1;
+wire [11:0] SHIFT_ERROR_1_0;
+wire [11:0] SHIFT_ERROR_1_1;
+
 
 // Module Frequency Counting for RO outputs: CHIP0 & CHIP1
 RO_FREQ_COUNTER RO_FREQ_COUNTER0(
@@ -331,7 +349,7 @@ RO_FREQ_COUNTER RO_FREQ_COUNTER1(
 // Modules For Outputting RO COUNTs: CHIP0 & CHIP1
 RO_DATA_OUTPUT RO_DATA_OUTPUT0(
     .data_clk(data_clk_RO_pi),
-    .reset(reset_RO_pi),
+    .reset(reset_pi),
     .INV_COUNT0(INV_COUNT0),
     .NAND_COUNT0(NAND_COUNT0),
     .NOR_COUNT0(NOR_COUNT0),
@@ -345,15 +363,62 @@ RO_DATA_OUTPUT RO_DATA_OUTPUT0(
     .DATA_OUT(data_out_RO_pi),
 );
 // Modules For Controlling/Collecting Error Counts for the Internal Shifter Blocks
-SHIFTER_TESTER SHIFTER_TESTER(
-
+SHIFTER_TESTER SHIFTER_TESTER0(
+    .CLK(CLK_MUXOUT),
+    .RST(w_rst),
+    .SHIFT_OUT0(SHIFT_OUT0_0),
+    .SHIFT_OUT1(SHIFT_OUT0_1),
+    .SHIFT_INPUT0(SHIFT_INPUT0_0),
+    .SHIFT_INPUT1(SHIFT_INPUT0_1),
+    .SHIFT_ERROR_COUNT0(SHIFT_ERROR_0_0),
+    .SHIFT_ERROR_COUNT1(SHIFT_ERROR_0_1)
+);
+SHIFTER_TESTER SHIFTER_TESTER1(
+    .CLK(CLK_MUXOUT),
+    .RST(w_rst),
+    .SHIFT_OUT0(SHIFT_OUT1_0),
+    .SHIFT_OUT1(SHIFT_OUT1_1),
+    .SHIFT_INPUT0(SHIFT_INPUT1_0),
+    .SHIFT_INPUT1(SHIFT_INPUT1_1),
+    .SHIFT_ERROR_COUNT0(SHIFT_ERROR_1_0),
+    .SHIFT_ERROR_COUNT1(SHIFT_ERROR_1_1)
 );
 SHIFTER_OUTPUT SHIFTER_OUTPUT(
-    
+    .DATA_CLK(data_clk_SHIFT_pi),
+    .RST(reset_pi),
+    .SAVE_DATA(read_data_SHIFT_pi),
+    .SHIFT_ERROR_0_0(SHIFT_ERROR_0_0),
+    .SHIFT_ERROR_0_1(SHIFT_ERROR_0_1),
+    .SHIFT_ERROR_1_0(SHIFT_ERROR_1_0),
+    .SHIFT_ERROR_1_1(SHIFT_ERROR_1_1),
+    .DATA_OUT(data_out_SHIFT_pi)
 );
 // Module For Outputting ERROR count Data Collecteted by LS_CNT Modules
 DFF_DATA_OUTPUT DFF_DATA_OUTPUT(
-
+    .data_clk(data_clk_dff_pi),
+    .save_data(save_data_dff_pi),
+    .reset(reset_pi),
+    .DFF_ERROR_0_0(ERR_CNT_DFFQ0_0),
+    .DFF_ERROR_0_1(ERR_CNT_DFFQ0_1),
+    .DFF_ERROR_0_2(ERR_CNT_DFFQ0_2),
+    .DFF_ERROR_0_3(ERR_CNT_DFFQ0_3),
+    .DFF_ERROR_0_4(ERR_CNT_DFFQ0_4),
+    .DFF_ERROR_0_5(ERR_CNT_DFFQ0_5),
+    .DFF_ERROR_0_6(ERR_CNT_DFFQ0_6),
+    .DFF_ERROR_0_7(ERR_CNT_DFFQ0_7),
+    .DFF_ERROR_0_8(ERR_CNT_DFFQ0_8),
+    .DFF_ERROR_0_9(ERR_CNT_DFFQ0_9),
+    .DFF_ERROR_1_0(ERR_CNT_DFFQ1_0),
+    .DFF_ERROR_1_1(ERR_CNT_DFFQ1_1),
+    .DFF_ERROR_1_2(ERR_CNT_DFFQ1_2),
+    .DFF_ERROR_1_3(ERR_CNT_DFFQ1_3),
+    .DFF_ERROR_1_4(ERR_CNT_DFFQ1_4),
+    .DFF_ERROR_1_5(ERR_CNT_DFFQ1_5),
+    .DFF_ERROR_1_6(ERR_CNT_DFFQ1_6),
+    .DFF_ERROR_1_7(ERR_CNT_DFFQ1_7),
+    .DFF_ERROR_1_8(ERR_CNT_DFFQ1_8),
+    .DFF_ERROR_1_9(ERR_CNT_DFFQ1_9),
+    .DATA_OUT(data_out_dff_pi)
 );
 
 endmodule
