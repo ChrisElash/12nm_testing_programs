@@ -367,7 +367,7 @@ RO_DATA_OUTPUT RO_DATA_OUTPUT0(
     .C(C0),
     .DATA_OUT(data_out_RO_pi),
 );
-assign C1 = C0;
+assign C1 = C0; // Since we want to keep these the same assign the value
 // Modules For Controlling/Collecting Error Counts for the Internal Shifter Blocks
 SHIFTER_TESTER SHIFTER_TESTER0(
     .CLK(CLK_MUXOUT),

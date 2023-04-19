@@ -25,9 +25,9 @@ module CLK_GEN_TOP(
 	output clk_100m, //new 0425
 	output  clk_10m,
     output reg CLK_MUXOUT,
-	 output CLK_100K,
-	 output CLK_REG, //50MHZ
-	 output RST_B
+	output CLK_100K,
+	output CLK_REG, //50MHZ
+	output RST_B
     );
 	 
 	 wire clk_4m;
