@@ -21,8 +21,10 @@
 
 module DFF_EXT_TEST_TOP(
     input CLK_50M,
-    output enable, // EXT == 1'b0, INT == 1'b1
-    output DAT_DUT,
+    output enable0, // EXT == 1'b0, INT == 1'b1
+    output enable1,
+    output DAT_DUT0,
+    output DAT_DUT1,
 
     // RPi Signals
     input save_data_dff_pi,
@@ -65,12 +67,13 @@ module DFF_EXT_TEST_TOP(
     input O_NOR0;
     input DividerOutput0;
     // Chip 1
-    input O_INV0;
-    input O_NAND0;
-    input O_NOR0;
-    input DividerOutput0;
+    input O_INV1;
+    input O_NAND1;
+    input O_NOR1;
+    input DividerOutput1;
     // Shared
-    output [1:0] C; // Internal Clock Gen Freqency Control
+    output [1:0] C0; // Internal Clock Gen Freqency Control
+    output [1:0] C1;
     // SHIFTER Module Signals
     input SHIFT_OUT0_0,
     input SHIFT_OUT0_1,
@@ -115,8 +118,10 @@ wire [11:0] ERR_CNT_DFFQ1_9;
 wire comp_out0_0, comp_out0_1, comp_out0_2, comp_out0_3, comp_out0_4, comp_out0_5, comp_out0_6, comp_out0_7, comp_out0_8, comp_out0_9;
 wire comp_out1_0, comp_out1_1, comp_out1_2, comp_out1_3, comp_out1_4, comp_out1_5, comp_out1_6, comp_out1_7, comp_out1_8, comp_out1_9;
 
-assign enable == 1'b1;
-assign DAT_DUT == 1'b1;
+assign enable0 = 1'b0; // EXT
+assign enable1 = 1'b0; // EXT
+assign DAT_DUT0 = 1'b1;
+assign DAT_DUT1 = 1'b1;
 
 wire w_rst;
 wire RST_PER;
@@ -359,9 +364,10 @@ RO_DATA_OUTPUT RO_DATA_OUTPUT0(
     .NOR_COUNT1(NOR_COUNT1),
     .DividerOutput_COUNT1(DividerOutput_COUNT1),
 
-    .C(C),
+    .C(C0),
     .DATA_OUT(data_out_RO_pi),
 );
+assign C1 = C0;
 // Modules For Controlling/Collecting Error Counts for the Internal Shifter Blocks
 SHIFTER_TESTER SHIFTER_TESTER0(
     .CLK(CLK_MUXOUT),
