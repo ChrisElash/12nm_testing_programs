@@ -21,9 +21,9 @@ import sys
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # use the actual pin number 
-GPIO.setup(7, GPIO.OUT, initial = GPIO.LOW) # the save pin for collecting the error registers (posedge)
-GPIO.setup(8, GPIO.OUT, initial = GPIO.LOW) # the data clk to get the counter data from the dffs
-GPIO.setup(10, GPIO.IN) # the data out for the counters of the dff
+GPIO.setup(23, GPIO.OUT, initial = GPIO.LOW) # the save pin for collecting the error registers (posedge)
+GPIO.setup(19, GPIO.OUT, initial = GPIO.LOW) # the data clk to get the counter data from the dffs
+GPIO.setup(15, GPIO.IN) # the data out for the counters of the dff
 
 """
 Converts a binary numbary to an equivlant decimal.

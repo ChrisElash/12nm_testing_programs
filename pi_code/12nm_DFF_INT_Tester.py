@@ -21,9 +21,8 @@ import sys
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # use the actual pin number 
-GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (shift clk)
-GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (clear)
-GPIO.setup(9999, GPIO.OUT, initial = GPIO.LOW) # CHECK THIS FOR THE PROPER PIN (load)
+GPIO.setup(29, GPIO.OUT, initial = GPIO.LOW) # shift clk for error detector
+GPIO.setup(13, GPIO.OUT, initial = GPIO.LOW) # load for error detector
 GPIO.setup(7, GPIO.OUT, initial = GPIO.LOW) # the save pin for collecting the error registers (posedge)
 GPIO.setup(8, GPIO.OUT, initial = GPIO.LOW) # the data clk to get the counter data from the dffs
 GPIO.setup(10, GPIO.IN) # the data out for the counters of the dff

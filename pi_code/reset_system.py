@@ -20,10 +20,9 @@ import sys
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD) # use the actual pin number
-GPIO.setup(5, GPIO.OUT, initial = GPIO.HIGH)
-GPIO.setup(13, GPIO.OUT, initial = GPIO.LOW)
-GPIO.setup(23, GPIO.OUT, initial = GPIO.LOW)
-GPIO.setup(33, GPIO.OUT, initial = GPIO.LOW)
+GPIO.setup(5, GPIO.OUT, initial = GPIO.LOW) # top level reset
+GPIO.setup(33, GPIO.OUT, initial = GPIO.LOW) # data clock RO
+GPIO.setup(19, GPIO.OUT, initial = GPIO.LOW) # data clock SHIFTER
 GPIO.setup(8, GPIO.OUT, initial = GPIO.LOW) # the data clk to get the counter data from the dffs
 
 
@@ -38,14 +37,6 @@ if __name__ == '__main__':
     
     # now reset the system to clear any data currently there
     GPIO.output(5, GPIO.LOW)
-
-    GPIO.output(13, GPIO.HIGH)
-    time.sleep(CLOCK_PERIOD)
-    GPIO.output(13, GPIO.LOW)
-    
-    GPIO.output(23, GPIO.HIGH)
-    time.sleep(CLOCK_PERIOD)
-    GPIO.output(23, GPIO.LOW)
     
     GPIO.output(33, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
@@ -55,6 +46,9 @@ if __name__ == '__main__':
     time.sleep(CLOCK_PERIOD)
     GPIO.output(8, GPIO.LOW)
 
+    GPIO.output(19, GPIO.HIGH)
+    time.sleep(CLOCK_PERIOD)
+    GPIO.output(19, GPIO.LOW)
 
     GPIO.output(5, GPIO.HIGH)
     
