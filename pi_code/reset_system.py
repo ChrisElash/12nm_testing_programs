@@ -36,7 +36,7 @@ if __name__ == '__main__':
     time.sleep(0.1)
     
     # now reset the system to clear any data currently there
-    GPIO.output(5, GPIO.LOW)
+    GPIO.output(5, GPIO.HIGH)
     
     GPIO.output(33, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
@@ -50,6 +50,6 @@ if __name__ == '__main__':
     time.sleep(CLOCK_PERIOD)
     GPIO.output(19, GPIO.LOW)
 
-    GPIO.output(5, GPIO.HIGH)
+    GPIO.output(5, GPIO.LOW)
     
     time.sleep(0.1)
