@@ -1,7 +1,7 @@
 #! /usr/bin/python
 ############################################################
 '''
-Created by Christopher Elash in September 2021
+Created by Christopher Elash in September 2021 and modified for 12nm by Dylan Lambert in March/April 2023
 
 This test program is meant for the 22nm FDSOI test chip and will reset all the programs
 

@@ -2,7 +2,7 @@
 ############################################################
 '''
 Created by Christopher Elash in September 2021 Originally Named "22nm_RO_Tester_NEW.py"
-Modified to work with the 12nm RO by Dylan Lambert in March 2023 now named "12nm_RO_Tester.py"
+Modified to work with the 12nm RO by Dylan Lambert in March/April 2023 now named "12nm_RO_Tester.py"
 
 This test program is meant for the 12nm FDSOI test chip and will test the chips 
 SRAM and test the chips clock generator.

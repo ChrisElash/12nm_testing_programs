@@ -1,7 +1,7 @@
 #! /usr/bin/python
 ############################################################
 '''
-Created by Christopher Elash in September 2021 and Modifed for 12nm by Dylan Lambert
+Created by Christopher Elash in September 2021 and Modifed for 12nm by Dylan Lambert in March/April 2023
 
 This test program is meant for the 12nm test chip and will test the chips 
 DFF using externally (from FPGA controlled clocking).

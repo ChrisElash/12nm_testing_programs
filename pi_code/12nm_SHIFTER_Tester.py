@@ -1,7 +1,7 @@
 #! /usr/bin/python
 ############################################################
 '''
-Created by Christopher Elash for 22nm in September 2021 and Modifed for 12nm by Dylan Lambert
+Created by Christopher Elash for 22nm in September 2021 and Modifed for 12nm by Dylan Lambert March/April 2023
 
 This test program is meant for the 12nm test chip and will test the chips 
 shifter circuits for SEUs.
@@ -67,9 +67,9 @@ Sends a clock pulse to the RO data out clk
 Returns: nothing
 """
 def clockDataSHIFTER():
-    GPIO.output(8, GPIO.HIGH)
+    GPIO.output(19, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
-    GPIO.output(8, GPIO.LOW)
+    GPIO.output(19, GPIO.LOW)
     time.sleep(CLOCK_PERIOD)
 
 
@@ -94,7 +94,7 @@ def getDFFData():
     #read the counter for the chain of 12 bits
     for i in range(12):
         clockDataSHIFTER() # clock the next bit in
-        if (GPIO.input(10)):
+        if (GPIO.input(15)):
             error_count_bits = '1' + error_count_bits
         else:
             error_count_bits = '0' + error_count_bits
@@ -157,9 +157,9 @@ if __name__ == '__main__':
 
             
             # first save the counter data
-            GPIO.output(7, GPIO.HIGH) # reset signal
+            GPIO.output(23, GPIO.HIGH) # reset signal
             time.sleep(CLOCK_PERIOD)
-            GPIO.output(7, GPIO.LOW)
+            GPIO.output(23, GPIO.LOW)
 
             for i in range(2): # 2 Shifters, Chip 0 is outputted first
                 error_count_shift = getDFFData()

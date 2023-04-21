@@ -1,7 +1,7 @@
 #! /usr/bin/python
 ############################################################
 '''
-Created by Christopher Elash in September 2021 and Modifed for 12nm by Dylan Lambert
+Created by Christopher Elash in September 2021 and Modifed for 12nm by Dylan Lambert in March/April 2023
 
 This test program is meant for the 12nm test chip and will test the chips 
 DFF using the internal clock generator to drive the logic.
@@ -80,9 +80,9 @@ Sends a Clock Pulse For Shift Clock, used to pull out saved data from the PISO
 Returns: Nothing
 """
 def clockShiftClk():
-    GPIO.output(9999, GPIO.HIGH)
+    GPIO.output(29, GPIO.HIGH)
     time.sleep(CLOCK_PERIOD)
-    GPIO.output(9999, GPIO.LOW)
+    GPIO.output(29, GPIO.LOW)
     time.sleep(CLOCK_PERIOD)
 
 """
@@ -168,9 +168,9 @@ if __name__ == '__main__':
             output_chains0 = []
             output_chains1 = []
 
-            GPIO.output(9999, GPIO.HIGH) # load
+            GPIO.output(13, GPIO.HIGH) # load
             clockShiftClk()
-            GPIO.output(9999, GPIO.LOW) # load
+            GPIO.output(13, GPIO.LOW) # load
 
             for k in range(12):
                 clockShiftClk()
