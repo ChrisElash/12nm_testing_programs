@@ -51,7 +51,7 @@ module RO_DATA_OUTPUT(
 	
 	// increase the data count and increase C select line after each frequency has been read
 	always @ (posedge data_clk)
-		if (~reset)
+		if (reset)
 			begin
 				output_count <= 8'd0;
 				C <= 2'd0;
@@ -76,7 +76,7 @@ module RO_DATA_OUTPUT(
 	end
 	
 	always @ (posedge data_clk)
-		if (~reset)
+		if (reset)
 			begin
 				DATA_OUT = 8'd0;
 			end

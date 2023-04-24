@@ -50,6 +50,10 @@ NET "C0[0]" LOC = AD34;
 NET "C0[1]" LOC = AC34;
 NET "C1[0]" LOC = AL34;
 NET "C1[1]" LOC = AK32;
+NET "K0[0]" LOC = AB33;
+NET "K0[1]" LOC = AF33;
+NET "K1[0]" LOC = AN34;
+NET "K1[1]" LOC = AN33;
 
 # This is for the shifter circuit shift out is "out" to DUT and in is "in" from DUT
 # So from the perspective of the DUT the "OUT" signals are its inputs
@@ -61,6 +65,9 @@ NET "SHIFT_INPUT0_0" LOC = Y34;
 NET "SHIFT_INPUT0_1" LOC = Y33;
 NET "SHIFT_INPUT1_0" LOC = AG32;
 NET "SHIFT_INPUT1_1" LOC = AK34;
+
+NET Ext_CLK_0 LOC = AE33;
+NET Ext_CLK_1 LOC = AN32;
 
 # -------------------Setting IO Standard voltage Pin-------------------
 NET "CLK_50M" IOSTANDARD = LVCMOS18;
@@ -114,6 +121,10 @@ NET "C0[0]" IOSTANDARD = LVCMOS18;
 NET "C0[1]" IOSTANDARD = LVCMOS18;
 NET "C1[0]" IOSTANDARD = LVCMOS18;
 NET "C1[1]" IOSTANDARD = LVCMOS18;
+NET "K0[0]" IOSTANDARD = LVCMOS18;
+NET "K0[1]" IOSTANDARD = LVCMOS18;
+NET "K1[0]" IOSTANDARD = LVCMOS18;
+NET "K1[1]" IOSTANDARD = LVCMOS18;
 
 # This is for the shifter circuit shift out is "out" to DUT and in is "in" from DUT
 # So from the perspective of the DUT the "OUT" signals are its inputs
@@ -126,6 +137,9 @@ NET "SHIFT_INPUT0_1" IOSTANDARD = LVCMOS18;
 NET "SHIFT_INPUT1_0" IOSTANDARD = LVCMOS18;
 NET "SHIFT_INPUT1_1" IOSTANDARD = LVCMOS18;
 
+NET Ext_CLK_0 IOSTANDARD = LVCMOS18;
+NET Ext_CLK_1 IOSTANDARD = LVCMOS18;
+
 # ------------------- Unlatching Clocked Signals With the FPGA -------------------
 NET "save_data_dff_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 1
 NET "data_clk_dff_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 19
@@ -137,3 +151,12 @@ NET "data_out_RO_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 16
 NET "data_out_SHIFT_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 7
 NET "data_clk_SHIFT_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 8
 NET "read_data_SHIFT_pi" CLOCK_DEDICATED_ROUTE = FALSE; # IDC Pin 10
+
+NET "O_INV0" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "O_NAND0" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "O_NOR0" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "DividerOutput0" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "O_INV1" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "O_NAND1" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "O_NOR1" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "DividerOutput1" CLOCK_DEDICATED_ROUTE = FALSE;

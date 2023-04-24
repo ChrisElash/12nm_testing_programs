@@ -24,9 +24,9 @@ module LS_CNT(
 	input Q, // Output from TestChip
 	input DATA, // Output from Data Gen (Same value that is inputted to Q before being outputted)
 	output reg [11:0] ERR_CNT, // Count anytime that Q != DATA
-	output reg comp_out // Real Time Comparision Value
+	//output reg comp_out // Real Time Comparision Value (Pointless because it is unused)
 	);
-	
+/*	
 reg [5:0] comp; // Push/Pop Register
 reg comp_en;
 reg pulse_delay;
@@ -70,9 +70,16 @@ always @ (posedge CLK) // if DATA and pulse are high do a comparision of DATA an
 		comp_out <= 1'b0;
 
 always @ (posedge CLK or posedge RST)
-	if (~RST)
+	if (RST)
 		ERR_CNT <= 0;
 	else if (comp_out == 1'b1) // if Q != DATA
+		ERR_CNT <= ERR_CNT + 1;
+*/
+
+always @ (posedge CLK or posedge RST)
+	if (RST)
+		ERR_CNT <= 0;
+	else if (Q != DATA) // if Q != DATA
 		ERR_CNT <= ERR_CNT + 1;
 
 endmodule

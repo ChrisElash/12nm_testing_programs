@@ -59,7 +59,7 @@ always @ (posedge SAVE_DATA) // save the current error count to send to output
     end
 
 always @ (posedge DATA_CLK) // Using a single set of data to select the data in a serial fashion
-    if (~RST) begin
+    if (RST) begin
         	output_count <= 10'd0;
 			output_count_12 <= 8'd0;
 			chain_select <= SHIFT_ERROR_SAVE_0_0;
@@ -99,7 +99,7 @@ initial begin
 end
 
 always @ (posedge DATA_CLK) begin
-    if (~RST)
+    if (RST)
         DATA_OUT = 1'b0;
     else begin
         case(output_count_12)

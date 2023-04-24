@@ -62,18 +62,20 @@ module DFF_EXT_TEST_TOP(
 
     // RO Module Signals
     // Chip 0
-    input O_INV0;
-    input O_NAND0;
-    input O_NOR0;
-    input DividerOutput0;
+    input O_INV0,
+    input O_NAND0,
+    input O_NOR0,
+    input DividerOutput0,
     // Chip 1
-    input O_INV1;
-    input O_NAND1;
-    input O_NOR1;
-    input DividerOutput1;
+    input O_INV1,
+    input O_NAND1,
+    input O_NOR1,
+    input DividerOutput1,
     // Shared
-    output [1:0] C0; // Internal Clock Gen Freqency Control
-    output [1:0] C1;
+    output [1:0] C0, // Internal Clock Gen Freqency Control
+    output [1:0] C1,
+    output [1:0] K0, // Clock Gen Control
+    output [1:0] K1, // 2'b00: 1.5Ghz, 2'b01: 750 Mhz, 2'b10: 375 Mhz, 2'b11: Ext_CLK
     // SHIFTER Module Signals
     input SHIFT_OUT0_0,
     input SHIFT_OUT0_1,
@@ -83,6 +85,9 @@ module DFF_EXT_TEST_TOP(
     output SHIFT_INPUT0_1,
     output SHIFT_INPUT1_0,
     output SHIFT_INPUT1_1,
+
+    output Ext_CLK_0,
+    output Ext_CLK_1
 );
 
 // CLK GEN wires
@@ -120,8 +125,12 @@ wire comp_out1_0, comp_out1_1, comp_out1_2, comp_out1_3, comp_out1_4, comp_out1_
 
 assign enable0 = 1'b0; // EXT
 assign enable1 = 1'b0; // EXT
-assign DAT_DUT0 = 1'b1;
-assign DAT_DUT1 = 1'b1;
+assign Ext_CLK_0 = CLK_MUXOUT;
+assign Ext_CLK_1 = CLK_MUXOUT;
+assign K0 = 2'b11; // EXT CLK
+assign K1 = 2'b11; // EXT CLK
+assign DAT_DUT0 = 1'b0;
+assign DAT_DUT1 = 1'b0;
 
 wire w_rst;
 wire RST_PER;
@@ -370,8 +379,7 @@ RO_DATA_OUTPUT RO_DATA_OUTPUT0(
 assign C1 = C0; // Since we want to keep these the same assign the value
 // Modules For Controlling/Collecting Error Counts for the Internal Shifter Blocks
 SHIFTER_TESTER SHIFTER_TESTER0(
-    .CLK(CLK_MUXOUT),
-    .RST(w_rst),
+    .RST(reset_pi),
     .SHIFT_OUT0(SHIFT_OUT0_0),
     .SHIFT_OUT1(SHIFT_OUT0_1),
     .SHIFT_INPUT0(SHIFT_INPUT0_0),
@@ -380,8 +388,7 @@ SHIFTER_TESTER SHIFTER_TESTER0(
     .SHIFT_ERROR_COUNT1(SHIFT_ERROR_0_1)
 );
 SHIFTER_TESTER SHIFTER_TESTER1(
-    .CLK(CLK_MUXOUT),
-    .RST(w_rst),
+    .RST(reset_pi),
     .SHIFT_OUT0(SHIFT_OUT1_0),
     .SHIFT_OUT1(SHIFT_OUT1_1),
     .SHIFT_INPUT0(SHIFT_INPUT1_0),

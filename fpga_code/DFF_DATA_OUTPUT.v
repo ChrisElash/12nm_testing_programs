@@ -112,7 +112,7 @@ module DFF_DATA_OUTPUT(
 	
 	// increase the data count and increase C select line after each frequency has been read
 	always @ (posedge data_clk)
-		if (~reset) begin // if reset, start from DFF0 on Chip 0
+		if (reset) begin // if reset, start from DFF0 on Chip 0
 			output_count <= 10'd0;
 			output_count_12 <= 8'd0;
 			chain_select <= DFF_ERROR_0_0_SAVE;
@@ -233,7 +233,7 @@ module DFF_DATA_OUTPUT(
 	end
 	
 	always @ (posedge data_clk)
-		if (~reset)
+		if (reset)
 			DATA_OUT = 1'b0;
 		else begin
 			case(output_count_12)		// now toggle between all the different data selects for the output, there are 12*10 bits to send

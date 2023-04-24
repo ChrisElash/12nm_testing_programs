@@ -19,7 +19,6 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module SHIFTER_TESTER(
-    input CLK,
     input RST,
     input SHIFT_OUT0,
     input SHIFT_OUT1,
@@ -33,10 +32,16 @@ module SHIFTER_TESTER(
 assign SHIFT_INPUT0 <= 1'b1; 
 assign SHIFT_INPUT1 <= 1'b1;
 
-always @ (negedge SHIFT_OUT0) // using the shifter output as initializing signal, as if a negative edge happens there is a SET occurence
-    SHIFT_ERROR_COUNT0 <= SHIFT_ERROR_COUNT0 + 12'd1;
+always @ (negedge SHIFT_OUT0 or posedge RST) // using the shifter output as initializing signal, as if a negative edge happens there is a SET occurence
+    if(RST)
+        SHIFT_ERROR_COUNT0 <= 12'd0;
+    else
+        SHIFT_ERROR_COUNT0 <= SHIFT_ERROR_COUNT0 + 12'd1;
 
-always @ (negedge SHIFT_OUT1)
-    SHIFT_ERROR_COUNT1 <= SHIFT_ERROR_COUNT1 + 12'd1;
+always @ (negedge SHIFT_OUT1 or posedge RST)
+    if(RST)
+        SHIFT_ERROR_COUNT1 <= 12'd0;
+    else
+        SHIFT_ERROR_COUNT1 <= SHIFT_ERROR_COUNT1 + 12'd1;
 
 endmodule

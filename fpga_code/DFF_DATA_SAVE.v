@@ -46,7 +46,7 @@ module DFF_DATA_OUTPUT(
 
 reg [5:0] bit_count;
 
-always @ (posedge shift_clk)
+always @ (posedge shift_clk) // For future reference this block is just using the PISO block in the testchip to serially grab the internal error count in the error detector
     if(load == 1'b0)
         case(bit_count)
             6'd0: begin // LSB
