@@ -146,11 +146,6 @@ assign K1 = 2'b00;
 assign Ext_CLK_0 = CLK_MUXOUT;
 assign Ext_CLK_1 = CLK_MUXOUT;
 
-wire w_rst;
-wire RST_PER;
-assign RST_PER = ~reset_pi;
-assign w_rst = ~(RST_B & ~RST_PER);
-
 CLK_GEN_TOP CLK_GEN_TOP(
     .CLK_50M(CLK_50M),
     .CLK_CTL(2'b10),
@@ -231,7 +226,7 @@ assign C1 = C0; // Since we want to keep these the same assign the value
 // Modules For Controlling/Collecting Error Counts for the Internal Shifter Blocks
 SHIFTER_TESTER SHIFTER_TESTER0(
     .CLK(CLK_MUXOUT),
-    .RST(w_rst),
+    .RST(reset_pi),
     .SHIFT_OUT0(SHIFT_OUT0_0),
     .SHIFT_OUT1(SHIFT_OUT0_1),
     .SHIFT_INPUT0(SHIFT_INPUT0_0),
@@ -241,7 +236,7 @@ SHIFTER_TESTER SHIFTER_TESTER0(
 );
 SHIFTER_TESTER SHIFTER_TESTER1(
     .CLK(CLK_MUXOUT),
-    .RST(w_rst),
+    .RST(reset_pi),
     .SHIFT_OUT0(SHIFT_OUT1_0),
     .SHIFT_OUT1(SHIFT_OUT1_1),
     .SHIFT_INPUT0(SHIFT_INPUT1_0),
