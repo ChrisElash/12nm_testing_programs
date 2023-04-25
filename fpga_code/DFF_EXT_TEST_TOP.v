@@ -120,8 +120,8 @@ wire [11:0] ERR_CNT_DFFQ1_7;
 wire [11:0] ERR_CNT_DFFQ1_8;
 wire [11:0] ERR_CNT_DFFQ1_9;
 
-wire comp_out0_0, comp_out0_1, comp_out0_2, comp_out0_3, comp_out0_4, comp_out0_5, comp_out0_6, comp_out0_7, comp_out0_8, comp_out0_9;
-wire comp_out1_0, comp_out1_1, comp_out1_2, comp_out1_3, comp_out1_4, comp_out1_5, comp_out1_6, comp_out1_7, comp_out1_8, comp_out1_9;
+//wire comp_out0_0, comp_out0_1, comp_out0_2, comp_out0_3, comp_out0_4, comp_out0_5, comp_out0_6, comp_out0_7, comp_out0_8, comp_out0_9;
+//wire comp_out1_0, comp_out1_1, comp_out1_2, comp_out1_3, comp_out1_4, comp_out1_5, comp_out1_6, comp_out1_7, comp_out1_8, comp_out1_9;
 
 assign enable0 = 1'b0; // EXT
 assign enable1 = 1'b0; // EXT
@@ -147,55 +147,55 @@ CLK_GEN_TOP CLK_GEN_TOP(
     .CLK_REG(clk_50m_sys),
     .RST_B(RST_B)
 );
-
+/*
 DATA_GEN DATA_GEN(
     .CLK(CLK_MUXOUT),
     .RST_B(~w_rst),
     .NS_DAT_CTL(2'b01),
     .NS_DAT_OUT(DAT_DUT)
 );
-
+*/
 // Compare Testing Result and Testing Input
 
 LS_CNT LS_CNT_DFF0_0(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_0),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_0),
-    .comp_out(comp_out0_0)
+    //.comp_out(comp_out0_0)
 );
 LS_CNT LS_CNT_DFF0_1(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_1),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_1),
-    .comp_out(comp_out0_1)
+    //.comp_out(comp_out0_1)
 );
 LS_CNT LS_CNT_DFF0_2(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_2),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_2),
-    .comp_out(comp_out0_2)
+    //.comp_out(comp_out0_2)
 );
 LS_CNT LS_CNT_DFF0_3(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_3),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_3),
-    .comp_out(comp_out0_3)
+    //.comp_out(comp_out0_3)
 );
 LS_CNT LS_CNT_DFF0_4(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_4),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_4),
-    .comp_out(comp_out0_4)
+    //.comp_out(comp_out0_4)
 );
 LS_CNT LS_CNT_DFF0_5(
     .CLK(CLK_MUXOUT),
@@ -203,119 +203,119 @@ LS_CNT LS_CNT_DFF0_5(
     .Q(DB_DFFQ0_5),
     .DATA(DAT_DUT),
     .ERR_CNT(ERR_CNT_DFFQ0_5),
-    .comp_out(comp_out0_5)
+    //.comp_out(comp_out0_5)
 );
 LS_CNT LS_CNT_DFF0_6(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_6),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_6),
-    .comp_out(comp_out0_6)
+    //.comp_out(comp_out0_6)
 );
 LS_CNT LS_CNT_DFF0_7(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_7),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_7),
-    .comp_out(comp_out0_7)
+    //.comp_out(comp_out0_7)
 );
 LS_CNT LS_CNT_DFF0_8(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_8),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_8),
-    .comp_out(comp_out0_8)
+    //.comp_out(comp_out0_8)
 );
 LS_CNT LS_CNT_DFF0_9(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ0_9),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT0),
     .ERR_CNT(ERR_CNT_DFFQ0_9),
-    .comp_out(comp_out0_9)
+    //.comp_out(comp_out0_9)
 );
 LS_CNT LS_CNT_DFF1_0(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_0),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_0),
-    .comp_out(comp_out1_0)
+    //.comp_out(comp_out1_0)
 );
 LS_CNT LS_CNT_DFF1_1(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_1),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_1),
-    .comp_out(comp_out1_1)
+    //.comp_out(comp_out1_1)
 );
 LS_CNT LS_CNT_DFF1_2(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_2),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_2),
-    .comp_out(comp_out1_2)
+   //.comp_out(comp_out1_2)
 );
 LS_CNT LS_CNT_DFF1_3(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_3),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_3),
-    .comp_out(comp_out1_3)
+    //.comp_out(comp_out1_3)
 );
 LS_CNT LS_CNT_DFF1_4(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_4),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_4),
-    .comp_out(comp_out1_4)
+    //.comp_out(comp_out1_4)
 );
 LS_CNT LS_CNT_DFF1_5(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_5),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_5),
-    .comp_out(comp_out1_5)
+    //.comp_out(comp_out1_5)
 );
 LS_CNT LS_CNT_DFF1_6(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_6),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_6),
-    .comp_out(comp_out1_6)
+    //.comp_out(comp_out1_6)
 );
 LS_CNT LS_CNT_DFF1_7(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_7),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_7),
-    .comp_out(comp_out1_7)
+    //.comp_out(comp_out1_7)
 );
 LS_CNT LS_CNT_DFF1_8(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_8),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_8),
-    .comp_out(comp_out1_8)
+    //.comp_out(comp_out1_8)
 );
 LS_CNT LS_CNT_DFF1_9(
     .CLK(CLK_MUXOUT),
     .RST(w_rst),
     .Q(DB_DFFQ1_9),
-    .DATA(DAT_DUT),
+    .DATA(DAT_DUT1),
     .ERR_CNT(ERR_CNT_DFFQ1_9),
-    .comp_out(comp_out1_9)
+    //.comp_out(comp_out1_9)
 );
 
 // Data Management and Data Output Modules For Tests
