@@ -7,7 +7,7 @@ NET "shift_clk1" LOC = K2;
 NET "load0" LOC = U3;
 NET "load1" LOC = K1;
 NET "clear0" LOC = V32;
-NET "clear1" LOC = AH32;
+NET "clear1" LOC = AH34;
 NET "DAT_DUT0" LOC = H2;
 NET "DAT_DUT1" LOC = D2;
 

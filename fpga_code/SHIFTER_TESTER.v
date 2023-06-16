@@ -24,8 +24,8 @@ module SHIFTER_TESTER(
     input SHIFT_OUT1,
     output SHIFT_INPUT0;
     output SHIFT_INPUT1;
-    output reg [11:0] SHIFT_ERROR_COUNT0,
-    output reg [11:0] SHIFT_ERROR_COUNT1,
+    output reg [15:0] SHIFT_ERROR_COUNT0,
+    output reg [15:0] SHIFT_ERROR_COUNT1,
 );
 
 // the input to the shifter will only be high so a low outut is a SET
@@ -34,14 +34,14 @@ assign SHIFT_INPUT1 <= 1'b1;
 
 always @ (negedge SHIFT_OUT0 or posedge RST) // using the shifter output as initializing signal, as if a negative edge happens there is a SET occurence
     if(RST)
-        SHIFT_ERROR_COUNT0 <= 12'd0;
+        SHIFT_ERROR_COUNT0 <= 16'd0;
     else
-        SHIFT_ERROR_COUNT0 <= SHIFT_ERROR_COUNT0 + 12'd1;
+        SHIFT_ERROR_COUNT0 <= SHIFT_ERROR_COUNT0 + 16'd1;
 
 always @ (negedge SHIFT_OUT1 or posedge RST)
     if(RST)
-        SHIFT_ERROR_COUNT1 <= 12'd0;
+        SHIFT_ERROR_COUNT1 <= 16'd0;
     else
-        SHIFT_ERROR_COUNT1 <= SHIFT_ERROR_COUNT1 + 12'd1;
+        SHIFT_ERROR_COUNT1 <= SHIFT_ERROR_COUNT1 + 16'd1;
 
 endmodule

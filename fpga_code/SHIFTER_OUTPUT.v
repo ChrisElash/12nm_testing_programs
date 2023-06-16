@@ -23,10 +23,10 @@ module SHIFTER_OUTPUT(
     input RST,
     input SAVE_DATA,
 
-    input [11:0] SHIFT_ERROR_0_0,
-    input [11:0] SHIFT_ERROR_0_1,
-    input [11:0] SHIFT_ERROR_1_0,
-    input [11:0] SHIFT_ERROR_1_1,
+    input [15:0] SHIFT_ERROR_0_0,
+    input [15:0] SHIFT_ERROR_0_1,
+    input [15:0] SHIFT_ERROR_1_0,
+    input [15:0] SHIFT_ERROR_1_1,
 
     output DATA_OUT,
 );
@@ -36,15 +36,15 @@ reg [7:0] output_count_12;
 
 initial begin
     output_count <= 10'd0;
-    output_count_12 <= 8'd0;
+    output_count_16 <= 8'd0;
 end
 
-reg [11:0] SHIFT_ERROR_SAVE_0_0;
-reg [11:0] SHIFT_ERROR_SAVE_0_1;
-reg [11:0] SHIFT_ERROR_SAVE_1_0;
-reg [11:0] SHIFT_ERROR_SAVE_1_1
+reg [15:0] SHIFT_ERROR_SAVE_0_0;
+reg [15:0] SHIFT_ERROR_SAVE_0_1;
+reg [15:0] SHIFT_ERROR_SAVE_1_0;
+reg [15:0] SHIFT_ERROR_SAVE_1_1
 
-reg [11:0] chain_select;
+reg [15:0] chain_select;
 
 initial begin
     chain_select <= SHIFT_ERROR_SAVE_0_0;
@@ -61,34 +61,34 @@ always @ (posedge SAVE_DATA) // save the current error count to send to output
 always @ (posedge DATA_CLK) // Using a single set of data to select the data in a serial fashion
     if (RST) begin
         	output_count <= 10'd0;
-			output_count_12 <= 8'd0;
+			output_count_16 <= 8'd0;
 			chain_select <= SHIFT_ERROR_SAVE_0_0;
     end
     else begin
         case(output_count)
-            10'd11: begin
+            10'd15: begin
                 output_count <= output_count + 1'b1;
-                output_count_12 <= 8'd0;
+                output_count_16 <= 8'd0;
                 chain_select <= SHIFT_ERROR_SAVE_0_1;
             end
-            10'd23: begin
+            10'd31: begin
                 output_count <= output_count + 1'b1;
-                output_count_12 <= 8'd0;
+                output_count_16 <= 8'd0;
                 chain_select <= SHIFT_ERROR_SAVE_1_0;
             end
-            10'd35: begin
+            10'd47: begin
                 output_count <= output_count + 1'b1;
-                output_count_12 <= 8'd0;
+                output_count_16 <= 8'd0;
                 chain_select <= SHIFT_ERROR_SAVE_1_1;
             end
-            10'd47: begin // end of chains, go back to start
+            10'd63: begin // end of chains, go back to start
                 output_count <= 10'd0;
-                output_count_12 <= 8'd0;
+                output_count_16 <= 8'd0;
                 chain_select <= SHIFT_ERROR_SAVE_0_0;
             end
             default: begin // when not at the end of an indiviual chain, count up
                 output_count <= output_count + 1'b1;
-                output_count_12 <= output_count_12 + 1'b1;
+                output_count_16 <= output_count_16 + 1'b1;
                 chain_select <= chain_select;
             end
         endcase
@@ -102,7 +102,7 @@ always @ (posedge DATA_CLK) begin
     if (RST)
         DATA_OUT = 1'b0;
     else begin
-        case(output_count_12)
+        case(output_count_16)
             8'd0    :   DATA_OUT = chain_select[0];
             8'd1    :   DATA_OUT = chain_select[1];
             8'd2    :   DATA_OUT = chain_select[2];
@@ -113,8 +113,12 @@ always @ (posedge DATA_CLK) begin
             8'd7    :   DATA_OUT = chain_select[7];
             8'd8    :   DATA_OUT = chain_select[8];
             8'd9    :   DATA_OUT = chain_select[9];
-            8'd10    :   DATA_OUT = chain_select[10];
-            8'd11    :   DATA_OUT = chain_select[11];
+            8'd10   :   DATA_OUT = chain_select[10];
+            8'd11   :   DATA_OUT = chain_select[11];
+            8'd12   :   DATA_OUT = chain_select[12];
+            8'd13   :   DATA_OUT = chain_select[13];
+            8'd14   :   DATA_OUT = chain_select[14];
+            8'd15   :   DATA_OUT = chain_select[15];  
             default :   DATA_OUT = 1'b0;
         endcase
     end
