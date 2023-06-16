@@ -172,7 +172,7 @@ if __name__ == '__main__':
             clockShiftClk()
             GPIO.output(13, GPIO.LOW) # load
 
-            for k in range(12):
+            for k in range(16):
                 clockShiftClk()
 
             # first save the counter data

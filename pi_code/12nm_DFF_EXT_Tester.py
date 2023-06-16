@@ -92,7 +92,7 @@ def getDFFData():
     
 
     #read the counter for the chain of 12 bits
-    for i in range(12):
+    for i in range(16):
         clockDataDFF() # clock the next bit in
         if (GPIO.input(10)):
             error_count_bits = '1' + error_count_bits
