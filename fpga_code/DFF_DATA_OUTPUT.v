@@ -23,68 +23,66 @@ module DFF_DATA_OUTPUT(
 	input save_data,
 	input reset,
 	
-	input [11:0] DFF_ERROR_0_0, // 12nm only has 10 bits of possible errors instead of 14 as in 22nm (CHIP0)
-	input [11:0] DFF_ERROR_0_1, // 12nm LS_CNT has only 12 counting bits for a maximum count of 4095 which was never seen before while testing 22nm
-	input [11:0] DFF_ERROR_0_2,
-	input [11:0] DFF_ERROR_0_3,
-	input [11:0] DFF_ERROR_0_4,
-	input [11:0] DFF_ERROR_0_5,
-	input [11:0] DFF_ERROR_0_6,
-	input [11:0] DFF_ERROR_0_7,
-	input [11:0] DFF_ERROR_0_8,
-	input [11:0] DFF_ERROR_0_9,
-	input [11:0] DFF_ERROR_1_0, // 12nm only has 10 bits of possible errors instead of 14 as in 22nm (CHIP1)
-	input [11:0] DFF_ERROR_1_1, // 12nm LS_CNT has only 12 counting bits for a maximum count of 4095 which was never seen before while testing 22nm
-	input [11:0] DFF_ERROR_1_2,
-	input [11:0] DFF_ERROR_1_3,
-	input [11:0] DFF_ERROR_1_4,
-	input [11:0] DFF_ERROR_1_5,
-	input [11:0] DFF_ERROR_1_6,
-	input [11:0] DFF_ERROR_1_7,
-	input [11:0] DFF_ERROR_1_8,
-	input [11:0] DFF_ERROR_1_9,
+	input [15:0] DFF_ERROR_0_0, // 12nm only has 10 bits of possible errors instead of 14 as in 22nm (CHIP0)
+	input [15:0] DFF_ERROR_0_1, // 12nm LS_CNT has only 16 counting bits for a maximum count of 4095 which was never seen before while testing 22nm
+	input [15:0] DFF_ERROR_0_2,
+	input [15:0] DFF_ERROR_0_3,
+	input [15:0] DFF_ERROR_0_4,
+	input [15:0] DFF_ERROR_0_5,
+	input [15:0] DFF_ERROR_0_6,
+	input [15:0] DFF_ERROR_0_7,
+	input [15:0] DFF_ERROR_0_8,
+	input [15:0] DFF_ERROR_0_9,
+	input [15:0] DFF_ERROR_1_0, // 12nm only has 10 bits of possible errors instead of 14 as in 22nm (CHIP1)
+	input [15:0] DFF_ERROR_1_1, // 12nm LS_CNT has only 16 counting bits for a maximum count of 4095 which was never seen before while testing 22nm
+	input [15:0] DFF_ERROR_1_2,
+	input [15:0] DFF_ERROR_1_3,
+	input [15:0] DFF_ERROR_1_4,
+	input [15:0] DFF_ERROR_1_5,
+	input [15:0] DFF_ERROR_1_6,
+	input [15:0] DFF_ERROR_1_7,
+	input [15:0] DFF_ERROR_1_8,
+	input [15:0] DFF_ERROR_1_9,
 	
 	output reg DATA_OUT
     );
 	 
 	reg [9:0] output_count;	// stores how many clks have occured
-	reg [7:0] output_count_12;	// resets after each 12 bits in order to change which data is outputted
+	reg [7:0] output_count_16;	// resets after each 16 bits in order to change which data is outputted
 	
 	initial begin
 		output_count <= 10'd0;
-		output_count_12 <= 8'd0;
+		output_count_16 <= 8'd0;
 	end
 	
-	reg [11:0] DFF_ERROR_0_0_SAVE; // Chip 0 save
-	reg [11:0] DFF_ERROR_0_1_SAVE;
-	reg [11:0] DFF_ERROR_0_2_SAVE;
-	reg [11:0] DFF_ERROR_0_3_SAVE;
-	reg [11:0] DFF_ERROR_0_4_SAVE;
-	reg [11:0] DFF_ERROR_0_5_SAVE;
-	reg [11:0] DFF_ERROR_0_6_SAVE;
-	reg [11:0] DFF_ERROR_0_7_SAVE;
-	reg [11:0] DFF_ERROR_0_8_SAVE;
-	reg [11:0] DFF_ERROR_0_9_SAVE;
-	reg [11:0] DFF_ERROR_1_0_SAVE; // Chip 1 save
-	reg [11:0] DFF_ERROR_1_1_SAVE;
-	reg [11:0] DFF_ERROR_1_2_SAVE;
-	reg [11:0] DFF_ERROR_1_3_SAVE;
-	reg [11:0] DFF_ERROR_1_4_SAVE;
-	reg [11:0] DFF_ERROR_1_5_SAVE;
-	reg [11:0] DFF_ERROR_1_6_SAVE;
-	reg [11:0] DFF_ERROR_1_7_SAVE;
-	reg [11:0] DFF_ERROR_1_8_SAVE;
-	reg [11:0] DFF_ERROR_1_9_SAVE;
+	reg [15:0] DFF_ERROR_0_0_SAVE; // Chip 0 save
+	reg [15:0] DFF_ERROR_0_1_SAVE;
+	reg [15:0] DFF_ERROR_0_2_SAVE;
+	reg [15:0] DFF_ERROR_0_3_SAVE;
+	reg [15:0] DFF_ERROR_0_4_SAVE;
+	reg [15:0] DFF_ERROR_0_5_SAVE;
+	reg [15:0] DFF_ERROR_0_6_SAVE;
+	reg [15:0] DFF_ERROR_0_7_SAVE;
+	reg [15:0] DFF_ERROR_0_8_SAVE;
+	reg [15:0] DFF_ERROR_0_9_SAVE;
+	reg [15:0] DFF_ERROR_1_0_SAVE; // Chip 1 save
+	reg [15:0] DFF_ERROR_1_1_SAVE;
+	reg [15:0] DFF_ERROR_1_2_SAVE;
+	reg [15:0] DFF_ERROR_1_3_SAVE;
+	reg [15:0] DFF_ERROR_1_4_SAVE;
+	reg [15:0] DFF_ERROR_1_5_SAVE;
+	reg [15:0] DFF_ERROR_1_6_SAVE;
+	reg [15:0] DFF_ERROR_1_7_SAVE;
+	reg [15:0] DFF_ERROR_1_8_SAVE;
+	reg [15:0] DFF_ERROR_1_9_SAVE;
 	
-	reg [11:0] chain_select;
+	reg [15:0] chain_select;
 	
 	
 	initial begin
-		chain_select <= DFF_ERROR_0_SAVE;
+		chain_select <= DFF_ERROR_0_0_SAVE;
 	end
 
-	
-	
 	// logic to save the current error counts to then proceed to data output
 	always @ (posedge save_data)
 		begin
@@ -114,114 +112,114 @@ module DFF_DATA_OUTPUT(
 	always @ (posedge data_clk)
 		if (reset) begin // if reset, start from DFF0 on Chip 0
 			output_count <= 10'd0;
-			output_count_12 <= 8'd0;
+			output_count_16 <= 8'd0;
 			chain_select <= DFF_ERROR_0_0_SAVE;
 		end
 		else begin
-			case(output_count) // every 12 bits read, move to the next set of DFF ERROR counts
-				10'd11: begin
+			case(output_count) // every 16 bits read, move to the next set of DFF ERROR counts
+				10'd15: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_1_SAVE;
 				end
-				10'd23: begin
+				10'd31: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_2_SAVE;
-				end
-				10'd35: begin
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_0_3_SAVE;
 				end
 				10'd47: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_0_3_SAVE;
+				end
+				10'd63: begin
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_4_SAVE;
 				end
-				10'd59: begin
+				10'd79: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_5_SAVE;
-				end
-				10'd71: begin
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_0_6_SAVE;
-				end
-				10'd83: begin
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_0_7_SAVE;
 				end
 				10'd95: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_0_6_SAVE;
+				end
+				10'd111: begin
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_0_7_SAVE;
+				end
+				10'd127: begin
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_8_SAVE;
 				end
-				10'd107: begin
+				10'd143: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_9_SAVE;
 				end
-				10'd119: begin // end of Chip 0 chains and start of Chip 1 chains
+				10'd159: begin // end of Chip 0 chains and start of Chip 1 chains
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_0_SAVE;
 				end
-				10'd131: begin
+				10'd175: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_1_SAVE;
-				end
-				10'd143: begin 
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_1_2_SAVE;
-				end
-				10'd155: begin 
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_1_3_SAVE;
-				end
-				10'd167: begin 
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_1_4_SAVE;
-				end
-				10'd179: begin 
-					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
-					chain_select <= DFF_ERROR_1_5_SAVE;
 				end
 				10'd191: begin 
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_1_2_SAVE;
+				end
+				10'd207: begin 
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_1_3_SAVE;
+				end
+				10'd223: begin 
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_1_4_SAVE;
+				end
+				10'd239: begin 
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
+					chain_select <= DFF_ERROR_1_5_SAVE;
+				end
+				10'd255: begin 
+					output_count <= output_count + 1'b1;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_6_SAVE;
 				end
-				10'd203: begin 
+				10'd271: begin 
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_7_SAVE;
 				end
-				10'd215: begin
+				10'd287: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_8_SAVE;
 				end
-				10'd227: begin
+				10'd303: begin
 					output_count <= output_count + 1'b1;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_1_9_SAVE;
 				end
-				10'd239: begin // end of chain, go back to chip 0, chain 0, restart count
+				10'd319: begin // end of chain, go back to chip 0, chain 0, restart count
 					output_count <= 10'd0;
-					output_count_12 <= 8'd0;
+					output_count_16 <= 8'd0;
 					chain_select <= DFF_ERROR_0_0_SAVE;
 				end
 				default: begin // when not at the end of a chain, count up
 					output_count <= output_count + 1'b1;
-					output_count_12 <= output_count_12 + 1'b1;
+					output_count_16 <= output_count_16 + 1'b1;
 					chain_select <= chain_select;
 				end
 			endcase
@@ -236,7 +234,7 @@ module DFF_DATA_OUTPUT(
 		if (reset)
 			DATA_OUT = 1'b0;
 		else begin
-			case(output_count_12)		// now toggle between all the different data selects for the output, there are 12*10 bits to send
+			case(output_count_16)		// now toggle between all the different data selects for the output, there are 16*10 bits to send
 				8'd0    :   DATA_OUT = chain_select[0];
 				8'd1    :   DATA_OUT = chain_select[1];
 				8'd2    :   DATA_OUT = chain_select[2];
@@ -249,6 +247,10 @@ module DFF_DATA_OUTPUT(
 				8'd9    :   DATA_OUT = chain_select[9];
 				8'd10   :   DATA_OUT = chain_select[10];
 				8'd11   :   DATA_OUT = chain_select[11];
+				8'd12	:	DATA_OUT = chain_select[12];
+				8'd13	:	DATA_OUT = chain_select[13];
+				8'd14	:	DATA_OUT = chain_select[14];
+				8'd15	:	DATA_OUT = chain_select[15];
 				default :	DATA_OUT = 1'b0;	// just set to 0 for default
 			endcase
 		end

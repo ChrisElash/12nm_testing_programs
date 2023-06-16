@@ -23,7 +23,7 @@ module LS_CNT(
 	input RST, // Active High
 	input Q, // Output from TestChip
 	input DATA, // Output from Data Gen (Same value that is inputted to Q before being outputted)
-	output reg [11:0] ERR_CNT, // Count anytime that Q != DATA
+	output reg [15:0] ERR_CNT, // Count anytime that Q != DATA
 	//output reg comp_out // Real Time Comparision Value (Pointless because it is unused)
 	);
 /*	

@@ -107,26 +107,26 @@ assign clear0 = reset_pi;
 assign clear1 = reset_pi;
 
 // Wire to pass error count from DATA_SAVE to Output circuit
-wire [11:0] ERR_CNT_DFFQ0_0;
-wire [11:0] ERR_CNT_DFFQ0_1;
-wire [11:0] ERR_CNT_DFFQ0_2;
-wire [11:0] ERR_CNT_DFFQ0_3;
-wire [11:0] ERR_CNT_DFFQ0_4;
-wire [11:0] ERR_CNT_DFFQ0_5;
-wire [11:0] ERR_CNT_DFFQ0_6;
-wire [11:0] ERR_CNT_DFFQ0_7;
-wire [11:0] ERR_CNT_DFFQ0_8;
-wire [11:0] ERR_CNT_DFFQ0_9;
-wire [11:0] ERR_CNT_DFFQ1_0;
-wire [11:0] ERR_CNT_DFFQ1_1;
-wire [11:0] ERR_CNT_DFFQ1_2;
-wire [11:0] ERR_CNT_DFFQ1_3;
-wire [11:0] ERR_CNT_DFFQ1_4;
-wire [11:0] ERR_CNT_DFFQ1_5;
-wire [11:0] ERR_CNT_DFFQ1_6;
-wire [11:0] ERR_CNT_DFFQ1_7;
-wire [11:0] ERR_CNT_DFFQ1_8;
-wire [11:0] ERR_CNT_DFFQ1_9;
+wire [15:0] ERR_CNT_DFFQ0_0;
+wire [15:0] ERR_CNT_DFFQ0_1;
+wire [15:0] ERR_CNT_DFFQ0_2;
+wire [15:0] ERR_CNT_DFFQ0_3;
+wire [15:0] ERR_CNT_DFFQ0_4;
+wire [15:0] ERR_CNT_DFFQ0_5;
+wire [15:0] ERR_CNT_DFFQ0_6;
+wire [15:0] ERR_CNT_DFFQ0_7;
+wire [15:0] ERR_CNT_DFFQ0_8;
+wire [15:0] ERR_CNT_DFFQ0_9;
+wire [15:0] ERR_CNT_DFFQ1_0;
+wire [15:0] ERR_CNT_DFFQ1_1;
+wire [15:0] ERR_CNT_DFFQ1_2;
+wire [15:0] ERR_CNT_DFFQ1_3;
+wire [15:0] ERR_CNT_DFFQ1_4;
+wire [15:0] ERR_CNT_DFFQ1_5;
+wire [15:0] ERR_CNT_DFFQ1_6;
+wire [15:0] ERR_CNT_DFFQ1_7;
+wire [15:0] ERR_CNT_DFFQ1_8;
+wire [15:0] ERR_CNT_DFFQ1_9;
 
 // CLK GEN wires
 wire RST_B;

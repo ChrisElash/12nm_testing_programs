@@ -32,16 +32,16 @@ module DFF_DATA_OUTPUT(
     input Q8,
     input Q9,
 
-    output reg [11:0] data0,
-    output reg [11:0] data1,
-    output reg [11:0] data2,
-    output reg [11:0] data3,
-    output reg [11:0] data4,
-    output reg [11:0] data5,
-    output reg [11:0] data6,
-    output reg [11:0] data7,
-    output reg [11:0] data8,
-    output reg [11:0] data9,
+    output reg [15:0] data0,
+    output reg [15:0] data1,
+    output reg [15:0] data2,
+    output reg [15:0] data3,
+    output reg [15:0] data4,
+    output reg [15:0] data5,
+    output reg [15:0] data6,
+    output reg [15:0] data7,
+    output reg [15:0] data8,
+    output reg [15:0] data9,
 );
 
 reg [5:0] bit_count;
@@ -192,7 +192,7 @@ always @ (posedge shift_clk) // For future reference this block is just using th
                 data9[10] <= Q9;
                 bit_count <= bit_count + 6'd1;
             end
-            6'd11: begin // MSB
+            6'd11: begin
                 data0[11] <= Q0;
                 data1[11] <= Q1;
                 data2[11] <= Q2;
@@ -203,6 +203,58 @@ always @ (posedge shift_clk) // For future reference this block is just using th
                 data7[11] <= Q7;
                 data8[11] <= Q8;
                 data9[11] <= Q9;
+                bit_count <= bit_count + 6'd1;
+            end
+            6'd12: begin
+                data0[12] <= Q0;
+                data1[12] <= Q1;
+                data2[12] <= Q2;
+                data3[12] <= Q3;
+                data4[12] <= Q4;
+                data5[12] <= Q5;
+                data6[12] <= Q6;
+                data7[12] <= Q7;
+                data8[12] <= Q8;
+                data9[12] <= Q9;
+                bit_count <= bit_count + 6'd1;
+            end
+            6'd13: begin
+                data0[13] <= Q0;
+                data1[13] <= Q1;
+                data2[13] <= Q2;
+                data3[13] <= Q3;
+                data4[13] <= Q4;
+                data5[13] <= Q5;
+                data6[13] <= Q6;
+                data7[13] <= Q7;
+                data8[13] <= Q8;
+                data9[13] <= Q9;
+                bit_count <= bit_count + 6'd1;
+            end
+            6'd14: begin
+                data0[14] <= Q0;
+                data1[14] <= Q1;
+                data2[14] <= Q2;
+                data3[14] <= Q3;
+                data4[14] <= Q4;
+                data5[14] <= Q5;
+                data6[14] <= Q6;
+                data7[14] <= Q7;
+                data8[14] <= Q8;
+                data9[14] <= Q9;
+                bit_count <= bit_count + 6'd1;
+            end
+            6'd15: begin // MSB
+                data0[15] <= Q0;
+                data1[15] <= Q1;
+                data2[15] <= Q2;
+                data3[15] <= Q3;
+                data4[15] <= Q4;
+                data5[15] <= Q5;
+                data6[15] <= Q6;
+                data7[15] <= Q7;
+                data8[15] <= Q8;
+                data9[15] <= Q9;
                 bit_count <= 6'd0;
             end
         endcase
